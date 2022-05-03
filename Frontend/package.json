@@ -11,11 +11,11 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "webpack -p --mode=production --devtool=source-map",
-    "start": "webpack-dev-server -d --mode=development --hot --inline",
-    "clean": "rm -rf dist"
+    "start": "webpack-dev-server -d --mode=development --hot --inline"
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "clean-webpack-plugin": "^4.0.0",
     "toastify-js": "^1.11.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
