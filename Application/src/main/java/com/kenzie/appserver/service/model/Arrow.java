@@ -1,18 +1,24 @@
 package com.kenzie.appserver.service.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Arrow {
-    private String userId;
-    private String messageId;
+    private final String userId;
+    private final String messageId;
     private String recipientName;
+    private String phone;
     private boolean isStarred;
     private String category;
     private String content;
     private String sendDate;
-    private boolean isSent = false; // this to be updated automatically if send date has passed
+    private boolean isSent = false; // this is to be updated automatically if send date has passed
 
     public Arrow(String userId,
                  String messageId,
                  String recipientName,
+                 String phone,
                  boolean isStarred,
                  String category,
                  String content,
@@ -21,6 +27,7 @@ public class Arrow {
         this.messageId = messageId;
         this.userId = userId;
         this.recipientName = recipientName;
+        this.phone = phone;
         this.isStarred = isStarred;
         this.category = category;
         this.content = content;
@@ -29,15 +36,17 @@ public class Arrow {
 
     public String getUserId() { return userId; }
 
-    public void setUserId(String userId) { this.userId = userId; }
-
     public String getMessageId() { return messageId; }
 
-    public void setMessageId(String messageId) { this.messageId = messageId; }
+    // the following parameters have getters And setters in order to be updatable
 
     public String getRecipientName() { return recipientName; }
 
     public void setRecipientName(String recipientName) { this.recipientName = recipientName; }
+
+    public String getPhone() { return phone; }
+
+    public void setPhone(String phone) { this.phone = phone; }
 
     public boolean isStarred() { return isStarred; }
 
@@ -55,7 +64,14 @@ public class Arrow {
 
     public void setSendDate(String sendDate) { this.sendDate = sendDate; }
 
-    public boolean isSent() { return isSent; }
+    // the following parameter is defaulted to false and updated when object called based on current date
 
-    public void setSent(boolean sent) { isSent = sent; }
+    public boolean isSent() {
+        LocalDate today = LocalDate.now();
+        LocalDate send = LocalDate.parse(sendDate);
+        isSent = today.isBefore(send);
+
+        return isSent;
+    }
+
 }
