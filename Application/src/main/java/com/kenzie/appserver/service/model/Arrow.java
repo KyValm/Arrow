@@ -69,9 +69,11 @@ public class Arrow {
     public boolean isSent() {
         LocalDate today = LocalDate.now();
         LocalDate send = LocalDate.parse(sendDate);
-        isSent = today.isBefore(send);
+        isSent = today.isAfter(send);
 
         return isSent;
     }
 
 }
+
+// Branch test on Ky branch
