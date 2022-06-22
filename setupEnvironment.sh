@@ -10,7 +10,7 @@
 
 # Fill out the following values
 # The path of your repo on github.  Don't but the whole URL, just the part after github.com/
-export LBC_REPO_NAME=ata-lbc-project-Arrow
+export LBC_REPO_NAME=KenzieAcademy-SoftwareEngineering/ata-lbc-project-Arrow
 
 # Do not modify the rest of these unless you have been instructed to do so.
 export LBC_PROJECT_NAME=unitproject4
