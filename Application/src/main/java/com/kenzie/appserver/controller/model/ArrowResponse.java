@@ -8,6 +8,8 @@ public class ArrowResponse {
 
     @JsonProperty("userId")
     private String userId;
+    @JsonProperty("messageId")
+    private String messageId;
     @JsonProperty("recipientName")
     private String recipientName;
     @JsonProperty("phone")
@@ -20,9 +22,12 @@ public class ArrowResponse {
     private String content;
     @JsonProperty("sendDate")
     private String sendDate;
-
+    @JsonProperty("isSent")
+    private boolean isSent;
 
     public String getUserId() { return userId; }
+
+    public String getMessageId() {return messageId; }
 
     public String getRecipientName() { return recipientName; }
 
@@ -38,6 +43,8 @@ public class ArrowResponse {
 
     public void setUserId(String userId) { this.userId = userId; }
 
+    public void setMessageId(String messageId) { this.messageId = messageId; }
+
     public void setRecipientName(String recipientName) { this.recipientName = recipientName; }
 
     public void setPhone(String phone) { this.phone = phone; }
@@ -50,4 +57,5 @@ public class ArrowResponse {
 
     public void setSendDate(String sendDate) { this.sendDate = sendDate; }
 
+    public void setIsSent(boolean isSent) {this.isSent = isSent; }
 }
