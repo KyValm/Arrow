@@ -6,10 +6,12 @@ import com.kenzie.appserver.controller.model.ArrowResponse;
 import com.kenzie.appserver.service.ArrowService;
 import com.kenzie.appserver.service.model.Arrow;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.UUID.randomUUID;
 
@@ -22,33 +24,56 @@ public class ArrowController {
 
     ArrowController(ArrowService arrowService) {this.arrowService = arrowService;}
 
-//    @PostMapping
-//    public ResponseEntity<ArrowResponse> addNewArrow(@RequestBody ArrowCreateRequest arrowCreateRequest){
-//        Arrow arrow = new Arrow(arrowCreateRequest.getUserId(),
-//                randomUUID().toString(),
-//                arrowCreateRequest.getRecipientName(),
-//                arrowCreateRequest.getPhone(),
-//                arrowCreateRequest.isStarred(),
-//                arrowCreateRequest.getCategory(),
-//                arrowCreateRequest.getContent(),
-//                arrowCreateRequest.getSendDate());
-//
-//        //ArrowService.addNewArrow(arrow);
-//
-//        ArrowResponse response = createArrowResponse(arrow);
-//
-//        return Respons
-//    }
+    @PostMapping
+    public ResponseEntity<ArrowResponse> addNewArrow(@RequestBody ArrowCreateRequest arrowCreateRequest){
+        Arrow arrow = new Arrow(arrowCreateRequest.getUserId(),
+                randomUUID().toString(),
+                arrowCreateRequest.getRecipientName(),
+                arrowCreateRequest.getPhone(),
+                arrowCreateRequest.isStarred(),
+                arrowCreateRequest.getCategory(),
+                arrowCreateRequest.getContent(),
+                arrowCreateRequest.getSendDate());
+
+        arrowService.addNewArrow(arrow);
+
+        ArrowResponse response = createArrowResponse(arrow);
+
+        return ResponseEntity.created(URI.create("/message/" + response.getMessageId())).body(response);
+    }
+
+    @GetMapping("/getAllMessages")
+    public ResponseEntity<List<ArrowResponse>> getArrows() {
+
+        List<Arrow> arrows = arrowService.findAllArrows();
+
+        List<ArrowResponse> response = new ArrayList<>();
+        for(Arrow arrow: arrows){
+            response.add(this.createArrowResponse(arrow));
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+
+    @DeleteMapping("/delete{id}")
+    public ResponseEntity deleteArrowById(@PathVariable("messageId") String messageId) {
+        arrowService.deleteArrow(messageId);
+        return ResponseEntity.noContent().build();
+    }
+
 
     private ArrowResponse createArrowResponse(Arrow arrow) {
         ArrowResponse arrowResponse = new ArrowResponse();
         arrowResponse.setUserId(arrow.getUserId());
+        arrowResponse.setMessageId(arrow.getMessageId());
         arrowResponse.setRecipientName(arrow.getRecipientName());
         arrowResponse.setPhone(arrow.getPhone());
         arrowResponse.setStarred(arrow.isStarred());
         arrowResponse.setCategory(arrow.getCategory());
         arrowResponse.setContent(arrow.getContent());
         arrowResponse.setSendDate(arrow.getSendDate());
+        arrowResponse.setIsSent(arrow.isSent());
         return arrowResponse;
     }
 
