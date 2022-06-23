@@ -1,0 +1,16 @@
+Resources:
+  PhotosTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Arrow
+      AttributeDefinitions:
+        - AttributeName: "messageId"
+          AttributeType: "S"
+        - AttributeName: "recipientName"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "messageId"
+          KeyType: "HASH"
+        - AttributeName: "recipientName"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
