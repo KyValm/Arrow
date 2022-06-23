@@ -31,6 +31,22 @@ public class ArrowService {
         return arrow;
     }
 
+    public void updateArrow(Arrow arrow){
+        if (arrowRepository.existsById(arrow.getMessageId())) {
+            ArrowRecord arrowRecord = new ArrowRecord();
+            arrowRecord.setUserId(arrow.getUserId());
+            arrowRecord.setMessageId(arrow.getMessageId());
+            arrowRecord.setRecipientName(arrow.getRecipientName());
+            arrowRecord.setPhone(arrow.getPhone());
+            arrowRecord.setStarred(arrow.isStarred());
+            arrowRecord.setCategory(arrow.getCategory());
+            arrowRecord.setContent(arrow.getContent());
+            arrowRecord.setSendDate(arrow.getSendDate());
+            arrowRecord.setSent(arrow.isSent());
+            arrowRepository.save(arrowRecord);
+        }
+    }
+
     public List<Arrow> findAllArrows(){
         List<Arrow> arrows = new ArrayList<>();
         Iterable<ArrowRecord> arrowIterator= arrowRepository.findAll();

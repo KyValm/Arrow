@@ -35,11 +35,13 @@ public class ArrowCreateRequest {
 
     public String getSendDate() { return sendDate; }
 
+    public void setUserId(String userId) { this.userId = userId;}
+
     public void setRecipientName(String recipientName) { this.recipientName = recipientName; }
 
     public void setPhone(String phone) { this.phone = phone; }
 
-    public void setStarred(boolean starred) { isStarred = starred; }
+    public void setStarred(boolean starred) { this.isStarred = starred; }
 
     public void setCategory(String category) { this.category = category; }
 
