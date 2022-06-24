@@ -3,6 +3,8 @@ package com.kenzie.appserver.controller.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ArrowUpdateRequest {
+    @JsonProperty("userId")
+    private String userId;
     @JsonProperty("messageId")
     private String messageId;
     @JsonProperty("recipientName")
@@ -19,6 +21,8 @@ public class ArrowUpdateRequest {
     private String sendDate;
 
 
+    public String getUserId() { return userId; }
+
     public String getMessageId() { return messageId; }
 
     public String getRecipientName() { return recipientName; }
@@ -32,6 +36,10 @@ public class ArrowUpdateRequest {
     public String getContent() { return content; }
 
     public String getSendDate() { return sendDate; }
+
+    public void setUserId(String userId) { this.userId = userId; }
+
+    public void setMessageId(String messageId) { this.messageId = messageId; }
 
     public void setRecipientName(String recipientName) { this.recipientName = recipientName; }
 

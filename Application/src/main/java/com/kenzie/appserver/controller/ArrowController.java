@@ -3,6 +3,7 @@ package com.kenzie.appserver.controller;
 import com.amazonaws.Response;
 import com.kenzie.appserver.controller.model.ArrowCreateRequest;
 import com.kenzie.appserver.controller.model.ArrowResponse;
+import com.kenzie.appserver.controller.model.ArrowUpdateRequest;
 import com.kenzie.appserver.service.ArrowService;
 import com.kenzie.appserver.service.model.Arrow;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,24 @@ public class ArrowController {
         return ResponseEntity.created(URI.create("/message/" + response.getMessageId())).body(response);
     }
 
+
+    @PutMapping
+    public ResponseEntity<ArrowResponse> updateArrow(@RequestBody ArrowUpdateRequest arrowUpdateRequest){
+        Arrow arrow = new Arrow(arrowUpdateRequest.getUserId(),
+                arrowUpdateRequest.getMessageId(),
+                arrowUpdateRequest.getRecipientName(),
+                arrowUpdateRequest.getPhone(),
+                arrowUpdateRequest.isStarred(),
+                arrowUpdateRequest.getCategory(),
+                arrowUpdateRequest.getContent(),
+                arrowUpdateRequest.getSendDate());
+
+        arrowService.updateArrow(arrow);
+
+        ArrowResponse response = createArrowResponse(arrow);
+
+        return ResponseEntity.ok(response);
+    }
     @GetMapping("/getAllMessages")
     public ResponseEntity<List<ArrowResponse>> getArrows() {
 
@@ -76,9 +95,4 @@ public class ArrowController {
         arrowResponse.setIsSent(arrow.isSent());
         return arrowResponse;
     }
-
-
-
-
-
 }
