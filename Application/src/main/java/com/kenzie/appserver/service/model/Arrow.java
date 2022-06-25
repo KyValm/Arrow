@@ -9,17 +9,17 @@ public class Arrow {
     private final String messageId;
     private String recipientName;
     private String phone;
-    private boolean isStarred;
+    private String starred;
     private String category;
     private String content;
     private String sendDate;
-    private boolean isSent = false; // this is to be updated automatically if send date has passed
+    private String status = "pending"; // this is to be updated automatically if send date has passed
 
     public Arrow(String userId,
                  String messageId,
                  String recipientName,
                  String phone,
-                 boolean isStarred,
+                 String starred,
                  String category,
                  String content,
                  String sendDate
@@ -28,7 +28,7 @@ public class Arrow {
         this.userId = userId;
         this.recipientName = recipientName;
         this.phone = phone;
-        this.isStarred = isStarred;
+        this.starred = starred;
         this.category = category;
         this.content = content;
         this.sendDate = sendDate;
@@ -48,9 +48,9 @@ public class Arrow {
 
     public void setPhone(String phone) { this.phone = phone; }
 
-    public boolean isStarred() { return isStarred; }
+    public String getStarred() { return starred; }
 
-    public void setStarred(boolean starred) { isStarred = starred; }
+    public void setStarred(String starred) { this.starred = starred; }
 
     public String getCategory() { return category; }
 
@@ -66,12 +66,16 @@ public class Arrow {
 
     // the following parameter is defaulted to false and updated when object called based on current date
 
-    public boolean isSent() {
+    public void setStatus() {
         LocalDate today = LocalDate.now();
         LocalDate send = LocalDate.parse(sendDate);
-        isSent = today.isAfter(send);
+        if(today.isAfter(send)){
+            status = "sent";
+        }
+    }
 
-        return isSent;
+    public String getStatus() {
+        return status;
     }
 
 }

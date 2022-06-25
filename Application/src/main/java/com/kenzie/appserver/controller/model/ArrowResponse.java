@@ -14,16 +14,16 @@ public class ArrowResponse {
     private String recipientName;
     @JsonProperty("phone")
     private String phone;
-    @JsonProperty("isStarred")
-    private boolean isStarred;
+    @JsonProperty("starred")
+    private String starred;
     @JsonProperty("category")
     private String category;
     @JsonProperty("content")
     private String content;
     @JsonProperty("sendDate")
     private String sendDate;
-    @JsonProperty("isSent")
-    private boolean isSent;
+    @JsonProperty("status")
+    private String status;
 
     public String getUserId() { return userId; }
 
@@ -33,13 +33,15 @@ public class ArrowResponse {
 
     public String getPhone() { return phone; }
 
-    public boolean isStarred() { return isStarred; }
+    public String getStarred() { return starred; }
 
     public String getCategory() { return category; }
 
     public String getContent() { return content; }
 
     public String getSendDate() { return sendDate; }
+
+    public String getStatus() { return status; }
 
     public void setUserId(String userId) { this.userId = userId; }
 
@@ -49,7 +51,7 @@ public class ArrowResponse {
 
     public void setPhone(String phone) { this.phone = phone; }
 
-    public void setStarred(boolean starred) { isStarred = starred; }
+    public void setStarred(String starred) { this.starred = starred; }
 
     public void setCategory(String category) { this.category = category; }
 
@@ -57,5 +59,5 @@ public class ArrowResponse {
 
     public void setSendDate(String sendDate) { this.sendDate = sendDate; }
 
-    public void setIsSent(boolean isSent) {this.isSent = isSent; }
+    public void setStatus(String status) {this.status = status; }
 }
