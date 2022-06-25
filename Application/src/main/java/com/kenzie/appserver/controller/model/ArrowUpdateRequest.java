@@ -11,8 +11,8 @@ public class ArrowUpdateRequest {
     private String recipientName;
     @JsonProperty("phone")
     private String phone;
-    @JsonProperty("isStarred")
-    private boolean isStarred;
+    @JsonProperty("starred")
+    private String starred;
     @JsonProperty("category")
     private String category;
     @JsonProperty("content")
@@ -29,7 +29,7 @@ public class ArrowUpdateRequest {
 
     public String getPhone() { return phone; }
 
-    public boolean isStarred() { return isStarred; }
+    public String getStarred() { return starred; }
 
     public String getCategory() { return category; }
 
@@ -45,7 +45,7 @@ public class ArrowUpdateRequest {
 
     public void setPhone(String phone) { this.phone = phone; }
 
-    public void setStarred(boolean starred) { isStarred = starred; }
+    public void setStarred(String starred) { this.starred = starred; }
 
     public void setCategory(String category) { this.category = category; }
 

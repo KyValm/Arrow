@@ -31,7 +31,7 @@ public class ArrowController {
                 randomUUID().toString(),
                 arrowCreateRequest.getRecipientName(),
                 arrowCreateRequest.getPhone(),
-                arrowCreateRequest.isStarred(),
+                arrowCreateRequest.getStarred(),
                 arrowCreateRequest.getCategory(),
                 arrowCreateRequest.getContent(),
                 arrowCreateRequest.getSendDate());
@@ -50,7 +50,7 @@ public class ArrowController {
                 arrowUpdateRequest.getMessageId(),
                 arrowUpdateRequest.getRecipientName(),
                 arrowUpdateRequest.getPhone(),
-                arrowUpdateRequest.isStarred(),
+                arrowUpdateRequest.getStarred(),
                 arrowUpdateRequest.getCategory(),
                 arrowUpdateRequest.getContent(),
                 arrowUpdateRequest.getSendDate());
@@ -74,6 +74,30 @@ public class ArrowController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ArrowResponse> getArrowById(@PathVariable("messageId") String messageId) {
+        Arrow arrow = arrowService.findArrowById(messageId);
+        if (arrow == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ArrowResponse response = createArrowResponse(arrow);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getSublist/{option}")
+    public ResponseEntity<List<ArrowResponse>> getArrowsByCategory(@PathVariable("option")String option){
+        List<Arrow> arrowsByCategory = arrowService.findArrowByCategory(option);
+        List<ArrowResponse> response = new ArrayList<>();
+        for(Arrow arrow: arrowsByCategory){
+            response.add(this.createArrowResponse(arrow));
+        }
+
+        return ResponseEntity.ok(response);
+
+    }
+
 
     @DeleteMapping("/delete{id}")
     public ResponseEntity deleteArrowById(@PathVariable("messageId") String messageId) {
@@ -88,11 +112,11 @@ public class ArrowController {
         arrowResponse.setMessageId(arrow.getMessageId());
         arrowResponse.setRecipientName(arrow.getRecipientName());
         arrowResponse.setPhone(arrow.getPhone());
-        arrowResponse.setStarred(arrow.isStarred());
+        arrowResponse.setStarred(arrow.getStarred());
         arrowResponse.setCategory(arrow.getCategory());
         arrowResponse.setContent(arrow.getContent());
         arrowResponse.setSendDate(arrow.getSendDate());
-        arrowResponse.setIsSent(arrow.isSent());
+        arrowResponse.setStatus(arrow.getStatus());
         return arrowResponse;
     }
 }

@@ -22,11 +22,11 @@ public class ArrowService {
         arrowRecord.setMessageId(arrow.getMessageId());
         arrowRecord.setRecipientName(arrow.getRecipientName());
         arrowRecord.setPhone(arrow.getPhone());
-        arrowRecord.setStarred(arrow.isStarred());
+        arrowRecord.setStarred(arrow.getStarred());
         arrowRecord.setCategory(arrow.getCategory());
         arrowRecord.setContent(arrow.getContent());
         arrowRecord.setSendDate(arrow.getSendDate());
-        arrowRecord.setSent(arrow.isSent());
+        arrowRecord.setStatus(arrow.getStatus());
         arrowRepository.save(arrowRecord);
         return arrow;
     }
@@ -38,11 +38,11 @@ public class ArrowService {
             arrowRecord.setMessageId(arrow.getMessageId());
             arrowRecord.setRecipientName(arrow.getRecipientName());
             arrowRecord.setPhone(arrow.getPhone());
-            arrowRecord.setStarred(arrow.isStarred());
+            arrowRecord.setStarred(arrow.getStarred());
             arrowRecord.setCategory(arrow.getCategory());
             arrowRecord.setContent(arrow.getContent());
             arrowRecord.setSendDate(arrow.getSendDate());
-            arrowRecord.setSent(arrow.isSent());
+            arrowRecord.setStatus(arrow.getStatus());
             arrowRepository.save(arrowRecord);
         }
     }
@@ -55,7 +55,7 @@ public class ArrowService {
                     arrow.getMessageId(),
                     arrow.getRecipientName(),
                     arrow.getPhone(),
-                    arrow.isStarred(),
+                    arrow.getStarred(),
                     arrow.getCategory(),
                     arrow.getContent(),
                     arrow.getSendDate()));
@@ -63,15 +63,75 @@ public class ArrowService {
         return arrows;
     }
 
-    public void deleteArrow(String messageId){
-        arrowRepository.deleteById(messageId);
+    public Arrow findArrowById(String messageId){
+        Arrow arrowFromBackendService = arrowRepository
+                .findById(messageId)
+                .map(arrow -> new Arrow(arrow.getUserId(),
+                        arrow.getMessageId(),
+                        arrow.getRecipientName(),
+                        arrow.getPhone(),
+                        arrow.getStarred(),
+                        arrow.getCategory(),
+                        arrow.getContent(),
+                        arrow.getSendDate()))
+                .orElse(null);
+
+        return arrowFromBackendService;
     }
 
 
+    public List<Arrow> findArrowByCategory(String option){
+        List<Arrow> arrowsByCategory = new ArrayList<>();
+        Iterable<ArrowRecord> arrowIterator= arrowRepository.findAll();
+        for(ArrowRecord arrow: arrowIterator) {
+            switch (option) {
+                case "friends":
+                case "family":
+                case "colleagues":
+                    if (arrow.getCategory().equals(option)) {
+                        arrowsByCategory.add(new Arrow(arrow.getUserId(),
+                                arrow.getMessageId(),
+                                arrow.getRecipientName(),
+                                arrow.getPhone(),
+                                arrow.getStarred(),
+                                arrow.getCategory(),
+                                arrow.getContent(),
+                                arrow.getSendDate()));
+                    }
+                    break;
+                case "sent":
+                    if (arrow.getStatus().equals("sent")) {
+                        arrowsByCategory.add(new Arrow(arrow.getUserId(),
+                                arrow.getMessageId(),
+                                arrow.getRecipientName(),
+                                arrow.getPhone(),
+                                arrow.getStarred(),
+                                arrow.getCategory(),
+                                arrow.getContent(),
+                                arrow.getSendDate()));
+                    }
+                    break;
+                case "starred":
+                    if (arrow.getStarred().equals("starred")) {
+                        arrowsByCategory.add(new Arrow(arrow.getUserId(),
+                                arrow.getMessageId(),
+                                arrow.getRecipientName(),
+                                arrow.getPhone(),
+                                arrow.getStarred(),
+                                arrow.getCategory(),
+                                arrow.getContent(),
+                                arrow.getSendDate()));
+                    }
+                    break;
+            }
+
+        }
+        return arrowsByCategory;
+    }
 
 
-
-
-
+    public void deleteArrow(String messageId){
+        arrowRepository.deleteById(messageId);
+    }
 
 }
