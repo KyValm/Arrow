@@ -11,11 +11,11 @@ public class ArrowRecord {
     private String messageId;
     private String recipientName;
     private String phone;
-    private boolean isStarred;
+    private String starred;
     private String category;
     private String content;
     private String sendDate;
-    private boolean isSent = false;
+    private String status;
 
     @DynamoDBAttribute(attributeName = "userId")
     public String getUserId() {
@@ -53,13 +53,13 @@ public class ArrowRecord {
         this.phone = phone;
     }
 
-    @DynamoDBAttribute(attributeName = "isStarred")
-    public boolean isStarred() {
-        return isStarred;
+    @DynamoDBAttribute(attributeName = "starred")
+    public String getStarred() {
+        return starred;
     }
 
-    public void setStarred(boolean starred) {
-        isStarred = starred;
+    public void setStarred(String starred) {
+        this.starred = starred;
     }
 
     @DynamoDBAttribute(attributeName = "category")
@@ -89,12 +89,12 @@ public class ArrowRecord {
         this.sendDate = sendDate;
     }
 
-    @DynamoDBAttribute(attributeName = "isSent")
-    public boolean isSent() {
-        return isSent;
+    @DynamoDBAttribute(attributeName = "status")
+    public String getStatus() {
+        return status;
     }
 
-    public void setSent(boolean sent) {
-        isSent = sent;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
