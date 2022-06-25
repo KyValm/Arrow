@@ -63,15 +63,58 @@ public class ArrowService {
         return arrows;
     }
 
-    public void deleteArrow(String messageId){
-        arrowRepository.deleteById(messageId);
+    public List<Arrow> findArrowByCategory(String option){
+        List<Arrow> arrowsByCategory = new ArrayList<>();
+        Iterable<ArrowRecord> arrowIterator= arrowRepository.findAll();
+        for(ArrowRecord arrow: arrowIterator) {
+            switch (option) {
+                case "friends":
+                case "family":
+                case "colleagues":
+                    if (arrow.getCategory().equals(option)) {
+                        arrowsByCategory.add(new Arrow(arrow.getUserId(),
+                                arrow.getMessageId(),
+                                arrow.getRecipientName(),
+                                arrow.getPhone(),
+                                arrow.isStarred(),
+                                arrow.getCategory(),
+                                arrow.getContent(),
+                                arrow.getSendDate()));
+                    }
+                    break;
+                case "isSent":
+                    if (arrow.isSent()) {
+                        arrowsByCategory.add(new Arrow(arrow.getUserId(),
+                                arrow.getMessageId(),
+                                arrow.getRecipientName(),
+                                arrow.getPhone(),
+                                arrow.isStarred(),
+                                arrow.getCategory(),
+                                arrow.getContent(),
+                                arrow.getSendDate()));
+                    }
+                    break;
+                case "isStarred":
+                    if (arrow.isStarred()) {
+                        arrowsByCategory.add(new Arrow(arrow.getUserId(),
+                                arrow.getMessageId(),
+                                arrow.getRecipientName(),
+                                arrow.getPhone(),
+                                arrow.isStarred(),
+                                arrow.getCategory(),
+                                arrow.getContent(),
+                                arrow.getSendDate()));
+                    }
+                    break;
+            }
+
+        }
+        return arrowsByCategory;
     }
 
 
-
-
-
-
-
+    public void deleteArrow(String messageId){
+        arrowRepository.deleteById(messageId);
+    }
 
 }

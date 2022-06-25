@@ -74,6 +74,18 @@ public class ArrowController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/getSublist{listEnum}")
+    public ResponseEntity<List<ArrowResponse>> getArrowsByCategory(String category){
+        List<Arrow> arrowsByCategory = arrowService.findArrowByCategory(category);
+        List<ArrowResponse> response = new ArrayList<>();
+        for(Arrow arrow: arrowsByCategory){
+            response.add(this.createArrowResponse(arrow));
+        }
+
+        return ResponseEntity.ok(response);
+
+    }
+
 
     @DeleteMapping("/delete{id}")
     public ResponseEntity deleteArrowById(@PathVariable("messageId") String messageId) {
