@@ -22,11 +22,11 @@ public class ArrowService {
         arrowRecord.setMessageId(arrow.getMessageId());
         arrowRecord.setRecipientName(arrow.getRecipientName());
         arrowRecord.setPhone(arrow.getPhone());
-        arrowRecord.setStarred(arrow.isStarred());
+        arrowRecord.setStarred(arrow.getStarred());
         arrowRecord.setCategory(arrow.getCategory());
         arrowRecord.setContent(arrow.getContent());
         arrowRecord.setSendDate(arrow.getSendDate());
-        arrowRecord.setSent(arrow.isSent());
+        arrowRecord.setStatus(arrow.getStatus());
         arrowRepository.save(arrowRecord);
         return arrow;
     }
@@ -38,11 +38,11 @@ public class ArrowService {
             arrowRecord.setMessageId(arrow.getMessageId());
             arrowRecord.setRecipientName(arrow.getRecipientName());
             arrowRecord.setPhone(arrow.getPhone());
-            arrowRecord.setStarred(arrow.isStarred());
+            arrowRecord.setStarred(arrow.getStarred());
             arrowRecord.setCategory(arrow.getCategory());
             arrowRecord.setContent(arrow.getContent());
             arrowRecord.setSendDate(arrow.getSendDate());
-            arrowRecord.setSent(arrow.isSent());
+            arrowRecord.setStatus(arrow.getStatus());
             arrowRepository.save(arrowRecord);
         }
     }
@@ -55,7 +55,7 @@ public class ArrowService {
                     arrow.getMessageId(),
                     arrow.getRecipientName(),
                     arrow.getPhone(),
-                    arrow.isStarred(),
+                    arrow.getStarred(),
                     arrow.getCategory(),
                     arrow.getContent(),
                     arrow.getSendDate()));
@@ -70,7 +70,7 @@ public class ArrowService {
                         arrow.getMessageId(),
                         arrow.getRecipientName(),
                         arrow.getPhone(),
-                        arrow.isStarred(),
+                        arrow.getStarred(),
                         arrow.getCategory(),
                         arrow.getContent(),
                         arrow.getSendDate()))
@@ -93,31 +93,31 @@ public class ArrowService {
                                 arrow.getMessageId(),
                                 arrow.getRecipientName(),
                                 arrow.getPhone(),
-                                arrow.isStarred(),
+                                arrow.getStarred(),
                                 arrow.getCategory(),
                                 arrow.getContent(),
                                 arrow.getSendDate()));
                     }
                     break;
-                case "isSent":
-                    if (arrow.isSent()) {
+                case "sent":
+                    if (arrow.getStatus().equals("sent")) {
                         arrowsByCategory.add(new Arrow(arrow.getUserId(),
                                 arrow.getMessageId(),
                                 arrow.getRecipientName(),
                                 arrow.getPhone(),
-                                arrow.isStarred(),
+                                arrow.getStarred(),
                                 arrow.getCategory(),
                                 arrow.getContent(),
                                 arrow.getSendDate()));
                     }
                     break;
-                case "isStarred":
-                    if (arrow.isStarred()) {
+                case "starred":
+                    if (arrow.getStarred().equals("starred")) {
                         arrowsByCategory.add(new Arrow(arrow.getUserId(),
                                 arrow.getMessageId(),
                                 arrow.getRecipientName(),
                                 arrow.getPhone(),
-                                arrow.isStarred(),
+                                arrow.getStarred(),
                                 arrow.getCategory(),
                                 arrow.getContent(),
                                 arrow.getSendDate()));
