@@ -63,6 +63,23 @@ public class ArrowService {
         return arrows;
     }
 
+    public Arrow findArrowById(String messageId){
+        Arrow arrowFromBackendService = arrowRepository
+                .findById(messageId)
+                .map(arrow -> new Arrow(arrow.getUserId(),
+                        arrow.getMessageId(),
+                        arrow.getRecipientName(),
+                        arrow.getPhone(),
+                        arrow.isStarred(),
+                        arrow.getCategory(),
+                        arrow.getContent(),
+                        arrow.getSendDate()))
+                .orElse(null);
+
+        return arrowFromBackendService;
+    }
+
+
     public List<Arrow> findArrowByCategory(String option){
         List<Arrow> arrowsByCategory = new ArrayList<>();
         Iterable<ArrowRecord> arrowIterator= arrowRepository.findAll();

@@ -74,6 +74,18 @@ public class ArrowController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ArrowResponse> getArrowById(@PathVariable("messageId") String messageId) {
+        Arrow arrow = arrowService.findArrowById(messageId);
+        if (arrow == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ArrowResponse response = createArrowResponse(arrow);
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/getSublist{listEnum}")
     public ResponseEntity<List<ArrowResponse>> getArrowsByCategory(String category){
         List<Arrow> arrowsByCategory = arrowService.findArrowByCategory(category);
