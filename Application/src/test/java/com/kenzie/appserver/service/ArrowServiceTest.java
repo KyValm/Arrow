@@ -9,9 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.Optional;
+
 import static java.util.UUID.randomUUID;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class ArrowServiceTest {
     private ArrowRepository arrowRepository;
@@ -61,23 +62,48 @@ public class ArrowServiceTest {
 
     }
 
-    @Test
-    void addNewArrow_invalidParameters_throwsException() {
+    @Test // TODO : Test needs to be fixed, need to throw exception
+    void addNewArrow_nullId_throwsException() {
         //GIVEN
-
+        Arrow arrow = new Arrow(null,
+                randomUUID().toString(),
+                "John Test",
+                "909-000-0000",
+                "starred",
+                "friends",
+                "test message",
+                "10-14-2022");
         //WHEN
-
         //THEN
-
+       // Assertions.assertThrows(IllegalArgumentException.class, () -> arrowService.addNewArrow(arrow));
     }
 
     @Test
     void updateArrow() {
         //GIVEN
+        String userId = randomUUID().toString();
+        String messageId = randomUUID().toString();
+        ArrowRecord arrowRecord = new ArrowRecord();
+        arrowRecord.setUserId(userId);
+        arrowRecord.setMessageId(messageId);
+        arrowRecord.setRecipientName("John Test");
+        arrowRecord.setPhone("909-000-0000");
+        arrowRecord.setStarred("starred");
+        arrowRecord.setCategory("friends");
+        arrowRecord.setContent("Message did not update successfully.");
+        arrowRecord.setSendDate("10-14-2022");
+        arrowRecord.setStatus("pending");
 
+        when(arrowRepository.findById(messageId)).thenReturn(Optional.of(arrowRecord));
         //WHEN
-
+        when(arrowRepository.existsById(messageId)).thenReturn(true);
+        Arrow arrow = arrowService.findArrowById(messageId);
+        arrowRecord.setContent("The message updated successfully.");
+        arrowService.updateArrow(arrow);
+        Arrow updatedArrow = arrowService.findArrowById(messageId);
         //THEN
+        Assertions.assertNotEquals(arrow.getContent(), updatedArrow.getContent());
+        Assertions.assertEquals("The message updated successfully.", updatedArrow.getContent());
 
     }
     @Test
