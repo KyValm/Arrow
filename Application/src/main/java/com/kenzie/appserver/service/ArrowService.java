@@ -16,7 +16,7 @@ public class ArrowService {
         this.arrowRepository = arrowRepository;
     }
 
-    public Arrow addNewArrow(Arrow arrow){
+    public Arrow addNewArrow(Arrow arrow) {
         ArrowRecord arrowRecord = new ArrowRecord();
         arrowRecord.setUserId(arrow.getUserId());
         arrowRecord.setMessageId(arrow.getMessageId());

@@ -1,0 +1,85 @@
+From 171805b88413e742a1a789b364fca9637cd60af5 Mon Sep 17 00:00:00 2001
+From: Tyler <tygary@gmail.com>
+Date: Tue, 3 May 2022 10:31:18 -0700
+Subject: [PATCH] Changing yarn to use webpack clean plugin instead of rm
+
+Windows machines can't use rm when running from inside intellij
+---
+ Frontend/build.gradle      | 2 --
+ Frontend/package.json      | 4 ++--
+ Frontend/webpack.config.js | 5 ++++-
+ Frontend/yarn.lock         | 7 +++++++
+ 4 files changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/Frontend/build.gradle b/Frontend/build.gradle
+index a120a90..5b4fc85 100644
+--- a/Frontend/build.gradle
++++ b/Frontend/build.gradle
+@@ -4,6 +4,4 @@ plugins {
+ 
+ yarn_build {
+     dependsOn("yarn_install")
+-    dependsOn("yarn_clean")
+-    tasks.findByName('yarn_clean').mustRunAfter 'yarn_install'
+ }
+diff --git a/Frontend/package.json b/Frontend/package.json
+index bbfa2e2..42b0f55 100644
+--- a/Frontend/package.json
++++ b/Frontend/package.json
+@@ -11,11 +11,11 @@
+   "scripts": {
+     "prepublishOnly": "npm run build",
+     "build": "webpack -p --mode=production --devtool=source-map",
+-    "start": "webpack-dev-server -d --mode=development --hot --inline",
+-    "clean": "rm -rf dist"
++    "start": "webpack-dev-server -d --mode=development --hot --inline"
+   },
+   "dependencies": {
+     "axios": "^0.21.1",
++    "clean-webpack-plugin": "^4.0.0",
+     "toastify-js": "^1.11.2",
+     "webpack": "^4.41.2",
+     "webpack-cli": "^3.3.10",
+diff --git a/Frontend/webpack.config.js b/Frontend/webpack.config.js
+index 64ae493..f3044c7 100644
+--- a/Frontend/webpack.config.js
++++ b/Frontend/webpack.config.js
+@@ -1,6 +1,8 @@
+ const path = require('path');
+ const HtmlWebpackPlugin = require('html-webpack-plugin');
+ const CopyPlugin = require("copy-webpack-plugin");
++const { CleanWebpackPlugin } = require('clean-webpack-plugin');
++
+ 
+ module.exports = {
+   optimization: {
+@@ -43,6 +45,7 @@ module.exports = {
+           to: path.resolve("dist/css")
+         }
+       ]
+-    })
++    }),
++    new CleanWebpackPlugin()   
+   ]
+ }
+diff --git a/Frontend/yarn.lock b/Frontend/yarn.lock
+index d7755fb..670d7b8 100644
+--- a/Frontend/yarn.lock
++++ b/Frontend/yarn.lock
+@@ -856,6 +856,13 @@ clean-stack@^2.0.0:
+   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
+   integrity sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==
+ 
++clean-webpack-plugin@^4.0.0:
++  version "4.0.0"
++  resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-4.0.0.tgz#72947d4403d452f38ed61a9ff0ada8122aacd729"
++  integrity sha512-WuWE1nyTNAyW5T7oNyys2EN0cfP2fdRxhxnIQWiAp0bMabPdHhoGxM8A6YL2GhqwgrPnnaemVE7nv5XJ2Fhh2w==
++  dependencies:
++    del "^4.1.1"
++
+ cliui@^5.0.0:
+   version "5.0.0"
+   resolved "https://registry.yarnpkg.com/cliui/-/cliui-5.0.0.tgz#deefcfdb2e800784aa34f46fa08e06851c7bbbc5"
+-- 
+2.32.0
+
