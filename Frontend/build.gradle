@@ -4,6 +4,4 @@ plugins {
 
 yarn_build {
     dependsOn("yarn_install")
-    dependsOn("yarn_clean")
-    tasks.findByName('yarn_clean').mustRunAfter 'yarn_install'
 }
