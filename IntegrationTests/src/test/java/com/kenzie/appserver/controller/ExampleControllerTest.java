@@ -1,7 +1,7 @@
 package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.IntegrationTest;
-import com.kenzie.appserver.service.model.Example;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,9 +20,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+
 @IntegrationTest
 class ExampleControllerTest {
-    @Autowired
+   /* @Autowired
     private MockMvc mvc;
 
     @Autowired
@@ -47,8 +48,9 @@ class ExampleControllerTest {
                         .value(is(name)))
                 .andExpect(status().isOk());
     }
+*/
 
-    @Test
+  /*  @Test
     public void createExample_CreateSuccessful() throws Exception {
         String name = mockNeat.strings().valStr();
 
@@ -66,5 +68,5 @@ class ExampleControllerTest {
                 .andExpect(jsonPath("name")
                         .value(is(name)))
                 .andExpect(status().isCreated());
-    }
+    }*/
 }
