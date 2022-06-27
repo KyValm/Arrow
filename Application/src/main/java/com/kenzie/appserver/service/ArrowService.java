@@ -3,6 +3,7 @@ package com.kenzie.appserver.service;
 import com.kenzie.appserver.repositories.ArrowRepository;
 import com.kenzie.appserver.repositories.model.ArrowRecord;
 import com.kenzie.appserver.service.model.Arrow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,8 +11,10 @@ import java.util.List;
 
 @Service
 public class ArrowService {
+
     private ArrowRepository arrowRepository;
 
+    @Autowired
     public ArrowService(ArrowRepository arrowRepository) {
         this.arrowRepository = arrowRepository;
     }

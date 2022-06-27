@@ -35,7 +35,7 @@ public class ArrowRecord {
         this.messageId = messageId;
     }
 
-    @DynamoDBRangeKey(attributeName = "recipientName")
+    @DynamoDBAttribute(attributeName = "recipientName")
     public String getRecipientName() {
         return recipientName;
     }
