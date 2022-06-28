@@ -59,8 +59,6 @@ class ArrowControllerTest {
         arrowCreateRequest.setContent(arrow.getContent());
         arrowCreateRequest.setSendDate(arrow.getSendDate());
 
-        // mapper.registerModule(new SimpleModule());
-
         // WHEN
         mvc.perform(post("/message")
                         .accept(MediaType.APPLICATION_JSON)
@@ -84,6 +82,58 @@ class ArrowControllerTest {
                 .andExpect(jsonPath("sendDate")
                         .value(is(arrow.getSendDate())))
                 .andExpect(status().isCreated());
+
+    }
+
+    @Test
+    public void updateMessage_successful() throws Exception {
+        // GIVEN
+        Arrow arrow = new Arrow(randomUUID().toString(),
+                randomUUID().toString(),
+                mockNeat.strings().valStr(),
+                "909-000-0000",
+                "starred",
+                "friends",
+                "test message",
+                "10-14-2022",
+                "pending");
+
+        Arrow arrow1 = arrowService.addNewArrow(arrow);
+        String updatedContent = "The message was updated successfully";
+
+        ArrowCreateRequest arrowCreateRequest = new ArrowCreateRequest();
+        arrowCreateRequest.setUserId(arrow.getUserId());
+        arrowCreateRequest.setMessageId(arrow.getMessageId());
+        arrowCreateRequest.setRecipientName(arrow.getRecipientName());
+        arrowCreateRequest.setPhone(arrow.getPhone());
+        arrowCreateRequest.setStarred(arrow.getStarred());
+        arrowCreateRequest.setCategory(arrow.getCategory());
+        arrowCreateRequest.setContent(updatedContent);
+        arrowCreateRequest.setSendDate(arrow.getSendDate());
+
+        // WHEN
+        mvc.perform(put("/message")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(arrowCreateRequest)))
+                // THEN
+                .andExpect(jsonPath("userId")
+                        .exists())
+                .andExpect(jsonPath("messageId")
+                        .value(is(arrow.getMessageId())))
+                .andExpect(jsonPath("recipientName")
+                        .value(is(arrow.getRecipientName())))
+                .andExpect(jsonPath("phone")
+                        .value(is(arrow.getPhone())))
+                .andExpect(jsonPath("starred")
+                        .value(is(arrow.getStarred())))
+                .andExpect(jsonPath("category")
+                        .value(is(arrow.getCategory())))
+                .andExpect(jsonPath("content")
+                        .value(is(updatedContent)))
+                .andExpect(jsonPath("sendDate")
+                        .value(is(arrow.getSendDate())))
+                .andExpect(status().isOk());
 
     }
 
