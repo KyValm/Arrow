@@ -38,7 +38,7 @@ class ArrowControllerTest {
 
     @Test
     public void loadArrow_withValidInputs_ArrowCreated() throws Exception {
-
+        // GIVEN
         Arrow arrow = new Arrow(randomUUID().toString(),
                 randomUUID().toString(),
                 mockNeat.strings().valStr(),
@@ -67,7 +67,7 @@ class ArrowControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(arrowCreateRequest)))
                 // THEN
-                /*.andExpect(jsonPath("userId")
+                .andExpect(jsonPath("userId")
                         .exists())
                 .andExpect(jsonPath("messageId")
                         .value(is(arrow.getMessageId())))
@@ -82,7 +82,7 @@ class ArrowControllerTest {
                 .andExpect(jsonPath("content")
                         .value(is(arrow.getContent())))
                 .andExpect(jsonPath("sendDate")
-                        .value(is(arrow.getSendDate())))*/
+                        .value(is(arrow.getSendDate())))
                 .andExpect(status().isCreated());
 
     }
