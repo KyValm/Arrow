@@ -13,7 +13,7 @@ public class Arrow {
     private String category;
     private String content;
     private String sendDate;
-    private String status = "pending"; // this is to be updated automatically if send date has passed
+    private String status; // this is to be updated automatically if send date has passed
 
     public Arrow(String userId,
                  String messageId,
@@ -22,7 +22,8 @@ public class Arrow {
                  String starred,
                  String category,
                  String content,
-                 String sendDate
+                 String sendDate,
+                 String status
                  ) {
         this.messageId = messageId;
         this.userId = userId;
@@ -32,6 +33,7 @@ public class Arrow {
         this.category = category;
         this.content = content;
         this.sendDate = sendDate;
+        this.status = status;
     }
 
     public String getUserId() { return userId; }
@@ -67,11 +69,12 @@ public class Arrow {
     // the following parameter is defaulted to false and updated when object called based on current date
 
     public void setStatus() {
-        LocalDate today = LocalDate.now();
-        LocalDate send = LocalDate.parse(sendDate);
-        if(today.isAfter(send)){
-            status = "sent";
-        }
+//        LocalDate today = LocalDate.now();
+//        LocalDate send = LocalDate.parse(sendDate);
+//        if(today.isAfter(send)){
+//            status = "sent";
+//        }
+        this.status = status;
     }
 
     public String getStatus() {

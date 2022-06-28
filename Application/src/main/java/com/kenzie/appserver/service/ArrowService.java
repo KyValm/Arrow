@@ -61,7 +61,8 @@ public class ArrowService {
                     arrow.getStarred(),
                     arrow.getCategory(),
                     arrow.getContent(),
-                    arrow.getSendDate()));
+                    arrow.getSendDate(),
+                    arrow.getStatus()));
         }
         return arrows;
     }
@@ -76,7 +77,8 @@ public class ArrowService {
                         arrow.getStarred(),
                         arrow.getCategory(),
                         arrow.getContent(),
-                        arrow.getSendDate()))
+                        arrow.getSendDate(),
+                        arrow.getStatus()))
                 .orElse(null);
 
         return arrowFromBackendService;
@@ -99,7 +101,8 @@ public class ArrowService {
                                 arrow.getStarred(),
                                 arrow.getCategory(),
                                 arrow.getContent(),
-                                arrow.getSendDate()));
+                                arrow.getSendDate(),
+                                arrow.getStatus()));
                     }
                     break;
                 case "sent":
@@ -111,7 +114,8 @@ public class ArrowService {
                                 arrow.getStarred(),
                                 arrow.getCategory(),
                                 arrow.getContent(),
-                                arrow.getSendDate()));
+                                arrow.getSendDate(),
+                                arrow.getStatus()));
                     }
                     break;
                 case "starred":
@@ -123,9 +127,12 @@ public class ArrowService {
                                 arrow.getStarred(),
                                 arrow.getCategory(),
                                 arrow.getContent(),
-                                arrow.getSendDate()));
+                                arrow.getSendDate(),
+                                arrow.getStatus()));
                     }
                     break;
+
+                default: throw new IllegalArgumentException();
             }
 
         }

@@ -34,7 +34,8 @@ public class ArrowController {
                 arrowCreateRequest.getStarred(),
                 arrowCreateRequest.getCategory(),
                 arrowCreateRequest.getContent(),
-                arrowCreateRequest.getSendDate());
+                arrowCreateRequest.getSendDate(),
+                arrowCreateRequest.getStatus());
 
         arrowService.addNewArrow(arrow);
 
@@ -53,7 +54,8 @@ public class ArrowController {
                 arrowUpdateRequest.getStarred(),
                 arrowUpdateRequest.getCategory(),
                 arrowUpdateRequest.getContent(),
-                arrowUpdateRequest.getSendDate());
+                arrowUpdateRequest.getSendDate(),
+                arrowUpdateRequest.getStatus());
 
         arrowService.updateArrow(arrow);
 
