@@ -28,7 +28,7 @@ public class ArrowController {
     @PostMapping
     public ResponseEntity<ArrowResponse> addNewArrow(@RequestBody ArrowCreateRequest arrowCreateRequest){
         Arrow arrow = new Arrow(arrowCreateRequest.getUserId(),
-                randomUUID().toString(),
+                arrowCreateRequest.getMessageId(),
                 arrowCreateRequest.getRecipientName(),
                 arrowCreateRequest.getPhone(),
                 arrowCreateRequest.getStarred(),
