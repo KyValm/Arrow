@@ -11,6 +11,4 @@ Resources:
       KeySchema:
         - AttributeName: "messageId"
           KeyType: "HASH"
-        - AttributeName: "recipientName"
-          KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
