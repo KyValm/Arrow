@@ -6,8 +6,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "messageId"
           AttributeType: "S"
-        - AttributeName: "recipientName"
-          AttributeType: "S"
       KeySchema:
         - AttributeName: "messageId"
           KeyType: "HASH"
