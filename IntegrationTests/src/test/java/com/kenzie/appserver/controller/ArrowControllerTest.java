@@ -13,10 +13,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.module.SimpleModule;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 import static java.util.UUID.randomUUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,7 +46,8 @@ class ArrowControllerTest {
                 "starred",
                 "friends",
                 "test message",
-                "10-14-2022");
+                "10-14-2022",
+                "pending");
 
         ArrowCreateRequest arrowCreateRequest = new ArrowCreateRequest();
         arrowCreateRequest.setUserId(arrow.getUserId());
@@ -54,14 +59,14 @@ class ArrowControllerTest {
         arrowCreateRequest.setContent(arrow.getContent());
         arrowCreateRequest.setSendDate(arrow.getSendDate());
 
-       // mapper.registerModule(new SimpleModule());
+        // mapper.registerModule(new SimpleModule());
 
         // WHEN
-        mvc.perform(post("/messsage")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(arrowCreateRequest)))
-        // THEN
+        mvc.perform(post("/message")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(arrowCreateRequest)))
+                // THEN
                 /*.andExpect(jsonPath("userId")
                         .exists())
                 .andExpect(jsonPath("messageId")
@@ -83,5 +88,45 @@ class ArrowControllerTest {
     }
 
     //TODO: add more tests below
+
+
+//    @Test
+//    public void getArrowByCategory_ArrowExists() throws Exception {
+//        // GIVEN
+//        String userId = randomUUID().toString();
+//        String messageId= randomUUID().toString();
+//        String recipientName = "John Test";
+//        String phone = "909-000-0000";
+//        String starred = "starred";
+//        String category = "friends";
+//        String content = "test message";
+//        String sendDate = "10-14-2022";
+//}
+
+
+
+
+    @Test
+    public void deleteArrow_DeleteSuccessful() throws Exception {
+        // GIVEN
+        Arrow arrow = new Arrow(randomUUID().toString(),
+                randomUUID().toString(),
+                "John Test",
+                "909-000-0000",
+                "starred",
+                "friends",
+                "test message",
+                "10-14-2022",
+                "pending");
+
+        Arrow persistedArrow = arrowService.addNewArrow(arrow);
+
+        // WHEN
+        mvc.perform(delete("/message/delete{id}", persistedArrow.getMessageId())
+                        .accept(MediaType.APPLICATION_JSON))
+                // THEN
+                .andExpect(status().isNoContent());
+        assertThat(arrowService.findArrowById(persistedArrow.getMessageId())).isNull();
+    }
 
 }

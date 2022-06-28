@@ -21,6 +21,8 @@ public class ArrowCreateRequest {
     private String content;
     @JsonProperty("sendDate")
     private String sendDate;
+    @JsonProperty("status")
+    private String status;
 
 
     public String getUserId() { return userId; }
@@ -55,4 +57,11 @@ public class ArrowCreateRequest {
 
     public void setSendDate(String sendDate) { this.sendDate = sendDate; }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
