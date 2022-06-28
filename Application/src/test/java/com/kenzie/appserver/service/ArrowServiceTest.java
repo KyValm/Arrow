@@ -139,11 +139,13 @@ public class ArrowServiceTest {
     @Test
     void deleteArrow() {
         //GIVEN
+        String messageId = randomUUID().toString();
 
         //WHEN
+        arrowService.deleteArrow(messageId);
 
         //THEN
-
+        verify(arrowRepository).deleteById(messageId);
     }
 
 }
