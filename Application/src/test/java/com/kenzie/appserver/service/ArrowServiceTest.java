@@ -114,10 +114,37 @@ public class ArrowServiceTest {
     @Test
     void findAllArrows() {
         //GIVEN
+        ArrowRecord record1 = new ArrowRecord();
+        record1.setUserId(randomUUID().toString());
+        record1.setMessageId(randomUUID().toString());
+        record1.setRecipientName("Joe Test");
+        record1.setPhone("909-000-0000");
+        record1.setStarred("starred");
+        record1.setCategory("friends");
+        record1.setContent("Message did not update successfully.");
+        record1.setSendDate("10-14-2022");
+        record1.setStatus("pending");
+
+        ArrowRecord record2 = new ArrowRecord();
+        record2.setUserId(randomUUID().toString());
+        record2.setMessageId(randomUUID().toString());
+        record2.setRecipientName("Jane Test");
+        record2.setPhone("909-000-0000");
+        record2.setStarred("starred");
+        record2.setCategory("family");
+        record2.setContent("Message did not update successfully.");
+        record2.setSendDate("10-14-2022");
+        record2.setStatus("sent");
 
         //WHEN
 
+        List<ArrowRecord> recordList = new ArrayList<>();
+        recordList.add(record1);
+        recordList.add(record2);
+        when(arrowRepository.findAll()).thenReturn(recordList);
+
         //THEN
+
 
     }
 

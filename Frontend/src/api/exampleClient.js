@@ -70,4 +70,5 @@ export default class ExampleClient extends BaseClass {
             errorCallback(method + " failed - " + error);
         }
     }
+
 }

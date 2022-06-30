@@ -154,8 +154,6 @@ class ArrowControllerTest {
 //}
 
 
-
-
     @Test
     public void deleteArrow_DeleteSuccessful() throws Exception {
         // GIVEN
@@ -179,4 +177,28 @@ class ArrowControllerTest {
         assertThat(arrowService.findArrowById(persistedArrow.getMessageId())).isNull();
     }
 
+    @Test
+    public void getMessageById_Exists() throws Exception {
+        String id = UUID.randomUUID().toString();
+
+        Arrow arrow = new Arrow(randomUUID().toString(),
+                id,
+                "John Test",
+                "909-000-0000",
+                "starred",
+                "friends",
+                "test message",
+                "10-14-2022",
+                "pending");
+
+        mvc.perform(get("/message/{id}", id)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void getAll_Contains_Messages() throws Exception {
+        mvc.perform(get("/getAllMessages")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }

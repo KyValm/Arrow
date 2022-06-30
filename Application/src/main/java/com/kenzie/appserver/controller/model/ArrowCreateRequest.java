@@ -8,7 +8,7 @@ public class ArrowCreateRequest {
     @JsonProperty("userId")
     private String userId;
     @JsonProperty("messageId")
-    private String messageId;
+    private String messageId = null;
     @JsonProperty("recipientName")
     private String recipientName;
     @JsonProperty("phone")
@@ -27,7 +27,7 @@ public class ArrowCreateRequest {
 
     public String getUserId() { return userId; }
 
-    public String getMessageId() { return messageId; }
+//    public String getMessageId() { return messageId; }
 
     public String getRecipientName() { return recipientName; }
 
