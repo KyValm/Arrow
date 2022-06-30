@@ -45,8 +45,8 @@
                 <form class="card-content" id="create-form">
                     <p class="form-field">
 <!--                        <label>Recipient</label>-->
-                        <label for="name">Send To:</label>
-                        <input type="text" id="name" name="name" placeholder="name" required>
+                        <label for="recipientName">Send To:</label>
+                        <input type="text" id="recipientName" name="recipientName" placeholder="name" required>
 <!--                        <label for="category">Choose a category for your target:</label>-->
                         <input type="phone" id="phone" name="phone" placeholder="phone 000-000-0000" required>
                         <select id="category" name="category" required>
@@ -55,9 +55,9 @@
                             <option value="family">Family</option>
                         </select>
 <!--                        <label for="username">Username:</label>-->
-                        <label for="date">Send On:</label>
-                        <input type="date" id="date" name="date" placeholder="send date" required>
-                        <input type="text" id="message" name="message" placeholder="Your amazing message content" required>
+                        <label for="sendDate">Send On:</label>
+                        <input type="date" id="sendDate" name="sendDate" placeholder="send date" required>
+                        <input type="text" id="content" name="content" placeholder="Your amazing message content" required>
                         <input type="hidden" name="starred" value="notStarred">
                         <input type="checkbox" id="starred" name="starred" value="starred">
                         <label for="starred">Star this Recipient</label>

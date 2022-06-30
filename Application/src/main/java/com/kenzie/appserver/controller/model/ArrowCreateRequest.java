@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class ArrowCreateRequest {
     @JsonProperty("userId")
-    private String userId;
+    private String userId = "defaultUserId";
     @JsonProperty("messageId")
     private String messageId = null;
     @JsonProperty("recipientName")
@@ -27,7 +27,7 @@ public class ArrowCreateRequest {
 
     public String getUserId() { return userId; }
 
-//    public String getMessageId() { return messageId; }
+    public String getMessageId() { return messageId; }
 
     public String getRecipientName() { return recipientName; }
 

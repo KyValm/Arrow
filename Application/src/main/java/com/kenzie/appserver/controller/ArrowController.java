@@ -29,11 +29,11 @@ public class ArrowController {
 
     @PostMapping
     public ResponseEntity<ArrowResponse> addNewArrow(@RequestBody ArrowCreateRequest arrowCreateRequest){
-        String forSentStatus = "pending";
+        String status = "pending";
         LocalDate today = LocalDate.now();
         LocalDate send = LocalDate.parse(arrowCreateRequest.getSendDate());
         if(today.isAfter(send)){
-            forSentStatus = "sent";
+            status = "sent";
         }
 
         Arrow arrow = new Arrow(arrowCreateRequest.getUserId(),
@@ -44,7 +44,7 @@ public class ArrowController {
                 arrowCreateRequest.getCategory(),
                 arrowCreateRequest.getContent(),
                 arrowCreateRequest.getSendDate(),
-                forSentStatus);
+                status);
 
         arrowService.addNewArrow(arrow);
 
