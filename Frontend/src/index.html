@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
+
 <body>
 <div class="options">
     <header>
@@ -30,6 +31,13 @@
                 </ul>
             </div>
                 </nav>
+
+<body class="background">
+    <header class="header" id="header">
+        <div class="site-title">
+            <a class="header_home" href="index.html">Arrow</a>
+        </div>
+
     </header>
 </div>
     <div class="card">
@@ -64,6 +72,16 @@
                     </p>
                     <button type="submit">Load Arrow</button>
                 </form>
+
+        <h2>Create Example</h2>
+        <form class="form" id="create-form">
+            <p class="form-field">
+                <label>Name</label>
+                <input type="text" required class="validated-field" id="create-name-field">
+            </p>
+            <button type="submit">Create</button>
+        </form>
+
     </div>
     <div class="card">
         <h2>Get By ID</h2>
@@ -79,6 +97,16 @@
         <h2>Result:</h2>
         <p id="result-info"></p>
     </div>
-
+    <div class="form" id="Form">
+        <form action="/action_page.php">
+            <label for="date">Date to Send</label><br>
+            <input type="date" id="date" name="fname" value="John"><br>
+            <label for="phone">Recipient Number</label><br>
+            <input type="tel" id="phone" name="phone" placeholder="000-000-0000"><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname" value="Doe"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>

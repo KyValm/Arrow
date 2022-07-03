@@ -207,6 +207,10 @@ public class ArrowServiceTest {
         Assertions.assertNotNull(arrows, "The arrow list is returned");
         Assertions.assertEquals(1, arrows.size(), "There is one arrow from friend category.");
 
+        if(arrows.get(0).getMessageId().equals(record1.getMessageId())) {
+
+        }
+
         for (Arrow arrow : arrows) {
             if (arrow.getMessageId() == record1.getMessageId()) {
                 Assertions.assertEquals(record1.getUserId(), arrow.getUserId(), "The user id matches");

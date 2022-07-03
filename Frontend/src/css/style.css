@@ -6,7 +6,10 @@
 }
 
 body {
+
   background-image: url('https://c4.wallpaperflare.com/wallpaper/793/732/1019/clouds-sky-blue-sun-wallpaper-preview.jpg');
+=======
+
   font-family: 'Roboto', sans-serif;
   font-size: .88rem;
   background-repeat: no-repeat;
@@ -31,10 +34,19 @@ body {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .8);
 }
 
+
 .options header nav{
   display: flex;
   justify content: space-between;
   align-items: center;
+=======
+.header_home {
+    font-size: 100px;
+    line-height: 60px;
+    height: 110px;
+    text-decoration: none;
+    color: var(--secondary-color);
+
 }
 
 .logo h1{
@@ -132,5 +144,54 @@ ul li:active{box-shadow:
 
 .state.active {
     display: block;
+}
+
+
+=======
+.form{
+  width: 400px;
+  padding: 20px 50px;
+}
+
+.form .close{
+  text-align: right;
+  cursor: pointer;
+}
+
+.form .text h1{
+  text-align: center;
+  margin: 10px 0;
+}
+
+.form form{
+  display: block;
+  margin: auto;
+}
+
+.form .row{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form .row input{
+  margin-bottom: 0;
+}
+
+.form .row input:first-child{
+  margin-right: 10px;
+}
+
+.form .row input:last-child{
+  margin-left: 10px;
+}
+
+.form form input{
+  width:80%;
+  display: block;
+  border: 1px solid #000;
+  border-radius: 50px;
+  padding: 10px 16px;
+  margin: 18px auto;
+  outline: none;
 }
 

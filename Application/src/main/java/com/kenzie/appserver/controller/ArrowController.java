@@ -111,7 +111,7 @@ public class ArrowController {
     }
 
 
-    @DeleteMapping("/delete{id}")
+    @DeleteMapping("/delete{messageId}")
     public ResponseEntity deleteArrowById(@PathVariable("messageId") String messageId) {
         arrowService.deleteArrow(messageId);
         return ResponseEntity.noContent().build();
