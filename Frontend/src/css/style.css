@@ -6,10 +6,7 @@
 }
 
 body {
-
-  background-image: url('https://c4.wallpaperflare.com/wallpaper/793/732/1019/clouds-sky-blue-sun-wallpaper-preview.jpg');
-=======
-
+    background-image: url('https://images.squarespace-cdn.com/content/v1/5d6fecffe72733000174efec/1567781931154-QY8R00574Y97S9E3E5JS/20140301_Trade-151_0139.jpg');
   font-family: 'Roboto', sans-serif;
   font-size: .88rem;
   background-repeat: no-repeat;
@@ -25,7 +22,7 @@ body {
   border-radius: 1px;
   border-width: 20px;
   border-left-style: solid;
-  border-color: #A41034;
+  border-color: white;
   background-color: #cce4f8;
   opacity: 0.92;
   text-align: center;
@@ -34,18 +31,18 @@ body {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .8);
 }
 
-
 .options header nav{
   display: flex;
   justify content: space-between;
   align-items: center;
-=======
+  }
+
 .header_home {
     font-size: 100px;
     line-height: 60px;
     height: 110px;
     text-decoration: none;
-    color: var(--secondary-color);
+    color: white;
 
 }
 
@@ -84,7 +81,8 @@ ul li{
   -3px -3px 10px;
 }
 
-ul li:active{box-shadow:
+ul li:active{
+box-shadow:
   inset rgba(26, 62, 83, 0.3)
   3px 3px 10px,
     inset rgba(444, 414, 413,.7)
@@ -146,8 +144,6 @@ ul li:active{box-shadow:
     display: block;
 }
 
-
-=======
 .form{
   width: 400px;
   padding: 20px 50px;
