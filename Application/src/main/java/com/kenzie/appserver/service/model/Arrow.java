@@ -40,6 +40,8 @@ public class Arrow {
 
     public String getMessageId() { return messageId; }
 
+
+
     // the following parameters have getters And setters in order to be updatable
 
     public String getRecipientName() { return recipientName; }
