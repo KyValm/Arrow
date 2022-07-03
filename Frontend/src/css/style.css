@@ -6,6 +6,10 @@
 }
 
 body {
+
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/793/732/1019/clouds-sky-blue-sun-wallpaper-preview.jpg');
+=======
+
   font-family: 'Roboto', sans-serif;
   font-size: .88rem;
   background-repeat: no-repeat;
@@ -14,28 +18,77 @@ body {
   background-position: center;
 }
 
-.header {
-    /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 0 20px;
+.options {
+  margin: auto;
+  padding: 10px;
+  width: 84%;
+  border-radius: 1px;
+  border-width: 20px;
+  border-left-style: solid;
+  border-color: #A41034;
+  background-color: #cce4f8;
+  opacity: 0.92;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .8);
 }
 
+
+.options header nav{
+  display: flex;
+  justify content: space-between;
+  align-items: center;
+=======
 .header_home {
     font-size: 100px;
     line-height: 60px;
     height: 110px;
     text-decoration: none;
     color: var(--secondary-color);
+
 }
 
-.header_nav_link {
-    margin-left: 20px;
-    vertical-align: top;
-    line-height: 40px;
+.logo h1{
+  font-size: 2rem;
+  color: #0a2f45;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  transition: all 0.41s ease-in-out;
+}
+
+.logo h1:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 13px
+}
+
+ul {list-style-type: none;
+}
+
+ul li{
+  float: left;
+  padding: 8px 20px;
+  margin-right: 8px;
+  margin-top: 3px;
+  margin-bottom: 18px;
+  cursor: pointer;
+  border-radius: 20px;
+  background: #cce4f8;
+  box-shadow:
+  rgba(26, 62, 83, 0.3)
+  3px 3px 10px,
+    rgba(444, 414, 413,.7)
+  -3px -3px 10px;
+}
+
+ul li:active{box-shadow:
+  inset rgba(26, 62, 83, 0.3)
+  3px 3px 10px,
+    inset rgba(444, 414, 413,.7)
+  -3px -3px 10px;
 }
 
 .about {
@@ -43,9 +96,10 @@ body {
 }
 
 .button, button {
+
     background: #aed9ff;
     padding: 3px;
-    border-radius: 3px;
+    border-radius: 50px;
     text-decoration: none;
     color: black;
     border: 1px solid black;
@@ -61,6 +115,7 @@ body {
     background-color: var(--secondary-color);
     margin: 20px;
     padding: 10px 20px;
+    opacity: .8;
 }
 
 .validated-field:invalid {
@@ -90,6 +145,9 @@ body {
 .state.active {
     display: block;
 }
+
+
+=======
 .form{
   width: 400px;
   padding: 20px 50px;
@@ -136,3 +194,4 @@ body {
   margin: 18px auto;
   outline: none;
 }
+

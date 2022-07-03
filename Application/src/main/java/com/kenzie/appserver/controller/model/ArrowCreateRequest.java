@@ -6,9 +6,9 @@ import java.time.LocalDate;
 
 public class ArrowCreateRequest {
     @JsonProperty("userId")
-    private String userId;
+    private String userId = "defaultUserId";
     @JsonProperty("messageId")
-    private String messageId;
+    private String messageId = null;
     @JsonProperty("recipientName")
     private String recipientName;
     @JsonProperty("phone")

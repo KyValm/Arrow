@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.UUID.randomUUID;
@@ -27,15 +29,22 @@ public class ArrowController {
 
     @PostMapping
     public ResponseEntity<ArrowResponse> addNewArrow(@RequestBody ArrowCreateRequest arrowCreateRequest){
+        String status = "pending";
+        LocalDate today = LocalDate.now();
+        LocalDate send = LocalDate.parse(arrowCreateRequest.getSendDate());
+        if(today.isAfter(send)){
+            status = "sent";
+        }
+
         Arrow arrow = new Arrow(arrowCreateRequest.getUserId(),
-                arrowCreateRequest.getMessageId(),
+                UUID.randomUUID().toString(),
                 arrowCreateRequest.getRecipientName(),
                 arrowCreateRequest.getPhone(),
                 arrowCreateRequest.getStarred(),
                 arrowCreateRequest.getCategory(),
                 arrowCreateRequest.getContent(),
                 arrowCreateRequest.getSendDate(),
-                arrowCreateRequest.getStatus());
+                status);
 
         arrowService.addNewArrow(arrow);
 
@@ -63,6 +72,7 @@ public class ArrowController {
 
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/getAllMessages")
     public ResponseEntity<List<ArrowResponse>> getArrows() {
 
