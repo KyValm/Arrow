@@ -5,12 +5,11 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
-
 <body>
 <div class="options">
     <header>
         <nav>
-            <div class="logo" onclick="alert('Call Create Arrow Form!')">
+            <div class="header-title-text" onclick="alert('Call Create Arrow Form!')">
                 <h1>Arrow</h1>
             </div>
             <div class="menu">
@@ -31,29 +30,15 @@
                 </ul>
             </div>
                 </nav>
-
-<body class="background">
-    <header class="header" id="header">
-        <div class="site-title">
-            <a class="header_home" href="index.html">Arrow</a>
-        </div>
-
-    </header>
+</header>
 </div>
+</body>
+    </header>
     <div class="card">
-<!--        <h2>Create Example</h2>-->
-<!--        <form class="card-content" id="create-form">-->
-<!--            <p class="form-field">-->
-<!--                <label>Name</label>-->
-<!--                <input type="text" required class="validated-field" id="create-name-field">-->
-<!--            </p>-->
-<!--            <button type="submit">Create</button>-->
-<!--        </form>-->
         <h2>New Arrow</h2>
-                <form class="card-content" id="create-form">
-
+                <form class="form-popup" id="createArrow">
                     <p class="form-field">
-                        <!--                        <label>Recipient</label>-->
+                        <label>Recipient</label>-->
                         <label for="recipientName">Send To:</label>
                         <input type="text" id="recipientName" name="recipientName" placeholder="name" required>
                         <!--                        <label for="category">Choose a category for your target:</label>-->
@@ -74,33 +59,15 @@
                         <input type="checkbox" id="starred" name="starred" value="starred">
                         <label for="starred">Star this Arrow</label>
                     </p>
-                    <button type="submit">Load Arrow</button>
+                    <!-- This is to connect to add new Arrow method in arrow Client-->
+                    <button onclick="addNewArrow">Create Arrow</button>
                 </form>
-
-        <h2>Create Example</h2>
-        <form class="form" id="create-form">
-            <p class="form-field">
-                <label>Name</label>
-                <input type="text" required class="validated-field" id="create-name-field">
-            </p>
-            <button type="submit">Create</button>
-        </form>
-
     </div>
-    <div class="card">
-        <h2>Get By ID</h2>
-        <form class="card-content" id="get-by-id-form">
-            <p class="form-field">
-                <label>ID</label>
-                <input type="text" required class="validated-field" id="id-field">
-            </p>
-            <button type="submit">Get</button>
-        </form>
-    </div>
-    <div class="card" id="result">
-        <h2>Result:</h2>
-        <p id="result-info"></p>
-    </div>
-
-</body>
+<div class="image-container">
+    <center>
+        <p class="image-holder">
+        <!--<img src="https://i.imgur.com/b18FEXG.gif" />-->
+    </p>
+    </center>
+</div>
 </html>

@@ -3,10 +3,12 @@ import axios from 'axios';
 
 // Client to Call the Music Service
 
-export default class ArrowCline extends BaseClass {
+export default class ArrowClient extends BaseClass {
 
  constructor(props = {}){
         super();
+
+        const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow'];
         const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow', 'getArrows', 'getArrowById',
          'getArrowsByCategory', 'deleteArrow'];
         this.bindClassMethods(methodsToBind, this);
@@ -20,7 +22,7 @@ export default class ArrowCline extends BaseClass {
             this.props.onReady();
         }
     }
-
+    
     async addNewArrow(recipientName, phone, starred, category, content, sendDate, errorCallback) {
         try {
             const response = await this.client.post(`message`, {
@@ -29,15 +31,32 @@ export default class ArrowCline extends BaseClass {
             starred: starred,
             category: category,
             content: content,
-            sendDate: sendDate
-            });
+            sendDate: sendDate,
+            status: status});
             return response.data;
-        } catch (error) {
+        }  catch (error) {
             this.handleError("addNewArrow", error, errorCallback);
         }
     }
+    async updateArrow(userId, messageID, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
+           try {
+               const response = await this.client.put('message', {
+               userId: userId,
+               recipientName: recipientName,
+               phone: phone,
+               starred: starred,
+               category: category,
+               content: content,
+               sendDate: sendDate,
+               status: status});
+               return response.data;
+           } catch (error) {
+               this.handleError("message", error, errorCallback);
+               }
+       }
 
     async updateArrow(userId, messageId, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
+    
             try {
                 const response = await this.client.put(`message`, {
                 userId: userId,
@@ -55,7 +74,7 @@ export default class ArrowCline extends BaseClass {
                 this.handleError("updateArrow", error, errorCallback);
             }
         }
-
+        
      async getArrows(errorCallback) {
              try {
                  const response = await this.client.get(`/message/getAllMessages`);
@@ -103,8 +122,4 @@ export default class ArrowCline extends BaseClass {
                  errorCallback(method + " failed - " + error);
              }
          }
-
-
-
-
 }
