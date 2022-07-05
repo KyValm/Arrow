@@ -7,7 +7,10 @@ export default class ArrowClient extends BaseClass {
 
  constructor(props = {}){
         super();
+
         const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow'];
+        const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow', 'getArrows', 'getArrowById',
+         'getArrowsByCategory', 'deleteArrow'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -19,11 +22,10 @@ export default class ArrowClient extends BaseClass {
             this.props.onReady();
         }
     }
-
-    async addNewArrow(userId, messageID, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
+    
+    async addNewArrow(recipientName, phone, starred, category, content, sendDate, errorCallback) {
         try {
-            const response = await this.client.post('message', {
-            userId: userId,
+            const response = await this.client.post(`message`, {
             recipientName: recipientName,
             phone: phone,
             starred: starred,
@@ -32,9 +34,9 @@ export default class ArrowClient extends BaseClass {
             sendDate: sendDate,
             status: status});
             return response.data;
-        } catch (error) {
-            this.handleError("message", error, errorCallback);
-            }
+        }  catch (error) {
+            this.handleError("addNewArrow", error, errorCallback);
+        }
     }
     async updateArrow(userId, messageID, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
            try {
@@ -53,20 +55,71 @@ export default class ArrowClient extends BaseClass {
                }
        }
 
-  /*   async createConcert(name, date, ticketBasePrice, errorCallback) {
+    async updateArrow(userId, messageId, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
+    
             try {
-                const response = await this.client.post(`concerts`, {
-                    name: name,
-                    date: date,
-                    ticketBasePrice: ticketBasePrice
+                const response = await this.client.put(`message`, {
+                userId: userId,
+                messageId: messageId,
+                recipientName: recipientName,
+                phone: phone,
+                starred: starred,
+                category: category,
+                content: content,
+                sendDate: sendDate
+                status: status
                 });
                 return response.data;
             } catch (error) {
-                this.handleError("createConcert", error, errorCallback);
+                this.handleError("updateArrow", error, errorCallback);
             }
         }
-*/
+        
+     async getArrows(errorCallback) {
+             try {
+                 const response = await this.client.get(`/message/getAllMessages`);
+                 return response.data;
+             } catch(error) {
+                 this.handleError("getArrows", error, errorCallback);
+             }
+         }
 
+     async getArrowById(messageId, errorCallback) {
+             try {
+                 const response = await this.client.get(`/message/${messageId}`);
+                 return response.data.concert;
+             } catch (error) {
+                 this.handleError("getArrowById", error, errorCallback)
+             }
+         }
 
+     async getArrowsByCategory(option, errorCallback) {
+             try {
+                 const response = await this.client.get(`/message/getSublist/${option}`);
+                 return response.data.concert;
+             } catch (error) {
+                 this.handleError("getArrowByCategory", error, errorCallback)
+             }
+         }
 
+     async deleteArrow(messageId, errorCallback) {
+             try {
+                 const response = await this.client.delete(`/message/delete${messageId}`,{
+                 messageId: messageId
+                 });
+                 return response.data;
+             } catch (error) {
+                 this.handleError("deleteArrow", error, errorCallback)
+             }
+         }
+
+     handleError(method, error, errorCallback) {
+             console.error(method + " failed - " + error);
+             if (error.response.data.message !== undefined) {
+                 console.error(error.response.data.message);
+             }
+             if (errorCallback) {
+                 errorCallback(method + " failed - " + error);
+             }
+         }
 }
