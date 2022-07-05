@@ -86,7 +86,7 @@ public class ArrowController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{messageId}")
     public ResponseEntity<ArrowResponse> getArrowById(@PathVariable("messageId") String messageId) {
         Arrow arrow = arrowService.findArrowById(messageId);
         if (arrow == null) {
