@@ -3,11 +3,11 @@ import axios from 'axios';
 
 // Client to Call the Music Service
 
-export default class ArrowCline extends BaseClass {
+export default class ArrowClient extends BaseClass {
 
  constructor(props = {}){
         super();
-        const methodsToBind = [];
+        const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -19,14 +19,41 @@ export default class ArrowCline extends BaseClass {
             this.props.onReady();
         }
     }
-    // TODO: FIX arrow object class to account for random messageID/UserID
-    async addNewArrow(, errorCallback) {
-        try {
-            const response = await this.client.post
-        }
-    }
 
-     async createConcert(name, date, ticketBasePrice, errorCallback) {
+    async addNewArrow(userId, messageID, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
+        try {
+            const response = await this.client.post('message', {
+            userId: userId,
+            recipientName: recipientName,
+            phone: phone,
+            starred: starred,
+            category: category,
+            content: content,
+            sendDate: sendDate,
+            status: status});
+            return response.data;
+        } catch (error) {
+            this.handleError("message", error, errorCallback);
+            }
+    }
+    async updateArrow(userId, messageID, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
+           try {
+               const response = await this.client.put('message', {
+               userId: userId,
+               recipientName: recipientName,
+               phone: phone,
+               starred: starred,
+               category: category,
+               content: content,
+               sendDate: sendDate,
+               status: status});
+               return response.data;
+           } catch (error) {
+               this.handleError("message", error, errorCallback);
+               }
+       }
+
+  /*   async createConcert(name, date, ticketBasePrice, errorCallback) {
             try {
                 const response = await this.client.post(`concerts`, {
                     name: name,
@@ -38,7 +65,7 @@ export default class ArrowCline extends BaseClass {
                 this.handleError("createConcert", error, errorCallback);
             }
         }
-
+*/
 
 
 
