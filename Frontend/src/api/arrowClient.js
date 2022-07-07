@@ -7,8 +7,6 @@ export default class ArrowClient extends BaseClass {
 
  constructor(props = {}){
         super();
-
-        const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow'];
         const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow', 'getArrows', 'getArrowById',
          'getArrowsByCategory', 'deleteArrow'];
         this.bindClassMethods(methodsToBind, this);
@@ -22,7 +20,7 @@ export default class ArrowClient extends BaseClass {
             this.props.onReady();
         }
     }
-    
+
     async addNewArrow(recipientName, phone, starred, category, content, sendDate, errorCallback) {
         try {
             const response = await this.client.post(`message`, {
@@ -31,35 +29,17 @@ export default class ArrowClient extends BaseClass {
             starred: starred,
             category: category,
             content: content,
-            sendDate: sendDate,
-            status: status});
+            sendDate: sendDate
+            });
             return response.data;
-        }  catch (error) {
+        } catch (error) {
             this.handleError("addNewArrow", error, errorCallback);
         }
     }
-    async updateArrow(userId, messageID, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
-           try {
-               const response = await this.client.put('message', {
-               userId: userId,
-               recipientName: recipientName,
-               phone: phone,
-               starred: starred,
-               category: category,
-               content: content,
-               sendDate: sendDate,
-               status: status});
-               return response.data;
-           } catch (error) {
-               this.handleError("message", error, errorCallback);
-               }
-       }
 
-    async updateArrow(userId, messageId, recipientName, phone, starred, category, content, sendDate, status, errorCallback) {
-    
+    async updateArrow(messageId, recipientName, phone, starred, category, content, sendDate, errorCallback) {
             try {
                 const response = await this.client.put(`message`, {
-                userId: userId,
                 messageId: messageId,
                 recipientName: recipientName,
                 phone: phone,
@@ -67,14 +47,13 @@ export default class ArrowClient extends BaseClass {
                 category: category,
                 content: content,
                 sendDate: sendDate
-                status: status
                 });
                 return response.data;
             } catch (error) {
                 this.handleError("updateArrow", error, errorCallback);
             }
         }
-        
+
      async getArrows(errorCallback) {
              try {
                  const response = await this.client.get(`/message/getAllMessages`);
@@ -87,7 +66,7 @@ export default class ArrowClient extends BaseClass {
      async getArrowById(messageId, errorCallback) {
              try {
                  const response = await this.client.get(`/message/${messageId}`);
-                 return response.data.concert;
+                 return response.data;
              } catch (error) {
                  this.handleError("getArrowById", error, errorCallback)
              }
@@ -96,7 +75,7 @@ export default class ArrowClient extends BaseClass {
      async getArrowsByCategory(option, errorCallback) {
              try {
                  const response = await this.client.get(`/message/getSublist/${option}`);
-                 return response.data.concert;
+                 return response.data;
              } catch (error) {
                  this.handleError("getArrowByCategory", error, errorCallback)
              }
@@ -104,7 +83,7 @@ export default class ArrowClient extends BaseClass {
 
      async deleteArrow(messageId, errorCallback) {
              try {
-                 const response = await this.client.delete(`/message/delete${messageId}`,{
+                 const response = await this.client.delete(`/message/delete/${messageId}`,{
                  messageId: messageId
                  });
                  return response.data;
@@ -122,4 +101,8 @@ export default class ArrowClient extends BaseClass {
                  errorCallback(method + " failed - " + error);
              }
          }
+
+
+
+
 }
