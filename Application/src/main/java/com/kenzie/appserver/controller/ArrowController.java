@@ -36,7 +36,7 @@ public class ArrowController {
             status = "sent";
         }
 
-        Arrow arrow = new Arrow(arrowCreateRequest.getUserId(),
+        Arrow arrow = new Arrow("defaultUserId",
                 UUID.randomUUID().toString(),
                 arrowCreateRequest.getRecipientName(),
                 arrowCreateRequest.getPhone(),
@@ -56,7 +56,14 @@ public class ArrowController {
 
     @PutMapping
     public ResponseEntity<ArrowResponse> updateArrow(@RequestBody ArrowUpdateRequest arrowUpdateRequest){
-        Arrow arrow = new Arrow(arrowUpdateRequest.getUserId(),
+        String status = "pending";
+        LocalDate today = LocalDate.now();
+        LocalDate send = LocalDate.parse(arrowUpdateRequest.getSendDate());
+        if(today.isAfter(send)){
+            status = "sent";
+        }
+
+        Arrow arrow = new Arrow("defaultUserId",
                 arrowUpdateRequest.getMessageId(),
                 arrowUpdateRequest.getRecipientName(),
                 arrowUpdateRequest.getPhone(),
@@ -64,7 +71,7 @@ public class ArrowController {
                 arrowUpdateRequest.getCategory(),
                 arrowUpdateRequest.getContent(),
                 arrowUpdateRequest.getSendDate(),
-                arrowUpdateRequest.getStatus());
+                status);
 
         arrowService.updateArrow(arrow);
 
@@ -111,7 +118,7 @@ public class ArrowController {
     }
 
 
-    @DeleteMapping("/delete{messageId}")
+    @DeleteMapping("/delete/{messageId}")
     public ResponseEntity deleteArrowById(@PathVariable("messageId") String messageId) {
         arrowService.deleteArrow(messageId);
         return ResponseEntity.noContent().build();
