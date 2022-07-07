@@ -7,8 +7,6 @@ export default class ArrowClient extends BaseClass {
 
  constructor(props = {}){
         super();
-
-        const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow'];
         const methodsToBind = ['clientLoaded', 'addNewArrow', 'updateArrow', 'getArrows', 'getArrowById',
          'getArrowsByCategory', 'deleteArrow'];
         this.bindClassMethods(methodsToBind, this);
