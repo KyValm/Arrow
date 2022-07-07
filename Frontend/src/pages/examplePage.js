@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ArrowClient from "../api/ArrowClient";
+import ArrowClient from "../api/arrowClient";
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -9,7 +9,7 @@ class ExamplePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onClickNewArrow'], this);
+        this.bindClassMethods(['openForm', 'closeForm'], this);
         this.dataStore = new DataStore();
     }
 
@@ -19,7 +19,7 @@ class ExamplePage extends BaseClass {
     async mount() {
         document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
         document.getElementById('create-form').addEventListener('submit', this.onCreate);
-
+        document.getElementById('allArrows').addEventListener('click', this.getAllMessages);
         this.client = new ArrowClient();
         this.dataStore.addChangeListener(this.renderExample)
     }
@@ -29,15 +29,7 @@ class ExamplePage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    function onClickNewArrow() {
-         document.getElementById("createArrow").style.display = "block";
-    }
-
-    async closeForm() {
-        document.getElementById("createArrow").style.display = "none";
-    }
-
-    }
+ }
 /**
  * Main method to run when the page contents have loaded.
  */

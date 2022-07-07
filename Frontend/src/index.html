@@ -14,13 +14,13 @@
             </div>
             <div class="menu">
                 <ul>
-                    <li onclick="alert('Call Create Arrow Form!')">NEW</li>
-                    <li onclick="alert('Call EndPoint through js listener function')">All</li>
-                    <li onclick="alert('Call Update Form!')">Family</li>
-                    <li onclick="alert('Call Update Form!')">Friends</li>
-                    <li onclick="alert('Call Update Form!')">Colleagues</li>
-                    <li onclick="alert('Call Update Form!')">AllStars</li>
-                    <li onclick="alert('Call Update Form!')">Sent</li>
+                    <li class="list" onclick="openForm()">New Arrow</li>
+                    <li class="list" id="allArrows">All</li>
+                    <li class="list">Family</li>
+                    <li class="list">Friends</li>
+                    <li class="list">Colleagues</li>
+                    <li class="list">AllStars</li>
+                    <li class="list">Sent</li>
                 </ul>
             </div>
             <div class="login">
@@ -32,42 +32,54 @@
                 </nav>
 </header>
 </div>
+<div class="center">
+    <p>Welcome to Arrow,</p>
+    <p2 class="text">The simplest way to remember important dates.</p2>
+</div>
 </body>
-    </header>
-    <div class="card">
+    <div class="container">
+        <div class="form-popup" id="createArrowForm">
         <h2>New Arrow</h2>
-                <form class="form-popup" id="createArrow">
+                <form class="form-container">
                     <p class="form-field">
                         <label>Recipient</label>-->
                         <label for="recipientName">Send To:</label>
-                        <input type="text" id="recipientName" name="recipientName" placeholder="name" required>
+                        <input type="text" id="recipientName" name="recipientName" placeholder="Name" required>
                         <!--                        <label for="category">Choose a category for your target:</label>-->
                         <label for="phone">Phone:</label>
                         <input type="phone" id="phone" name="phone" placeholder="000-000-0000" required>
-                        <label for="category">Community:</label>
+                        <label for="category">Relationship:</label>
                         <select id="category" name="category" required>
-                            <option value="colleagues">Colleagues</option>
-                            <option value="friends">Friends</option>
+                            <option value="colleagues">Colleague</option>
+                            <option value="friends">Friend</option>
                             <option value="family">Family</option>
                         </select>
                         <!--                        <label for="username">Username:</label>-->
-                        <label for="sendDate">Arrow Send Date:</label>
+                        <label for="sendDate">Date To Send:</label>
                         <input type="date" id="sendDate" name="sendDate" placeholder="send date" required>
                         <label for="content">Message:</label>
-                        <input type="text" id="content" name="content" placeholder="your amazing content" required>
+                        <input type="text" id="content" name="content" placeholder="Your message here...." required>
                         <input type="hidden" name="starred" value="notStarred">
                         <input type="checkbox" id="starred" name="starred" value="starred">
                         <label for="starred">Star this Arrow</label>
                     </p>
                     <!-- This is to connect to add new Arrow method in arrow Client-->
-                    <button onclick="addNewArrow">Create Arrow</button>
+                    <button type="submit" class="btn" onclick="addNewArrow()">Create Arrow</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                 </form>
+        </div>
     </div>
-<div class="image-container">
-    <center>
-        <p class="image-holder">
-        <!--<img src="https://i.imgur.com/b18FEXG.gif" />-->
-    </p>
-    </center>
-</div>
+<script>
+    document.getElementById("content").style.height="200px";
+    document.getElementById("content").style.fontSize="14pt";
+    let popup = document.getElementById("createArrowForm");
+
+    function openForm() {
+        popup.classList.add("open-form-popup");
+    }
+    function closeForm() {
+        popup.classList.remove("open-form-popup");
+
+    }
+</script>
 </html>
