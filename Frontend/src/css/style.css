@@ -6,8 +6,8 @@
 }
 
 body {
-    background-image: url('https://images.squarespace-cdn.com/content/v1/5d6fecffe72733000174efec/1567781931154-QY8R00574Y97S9E3E5JS/20140301_Trade-151_0139.jpg');
-  font-family: 'Roboto', sans-serif;
+  background-image: url('https://images.squarespace-cdn.com/content/v1/5d6fecffe72733000174efec/1567781931154-QY8R00574Y97S9E3E5JS/20140301_Trade-151_0139.jpg');
+  font-family: 'Georgia', sans-serif;
   font-size: .88rem;
   background-repeat: no-repeat;
   background-size: cover;
@@ -19,16 +19,15 @@ body {
   margin: auto;
   padding: 10px;
   width: 84%;
-  border-radius: 1px;
-  border-width: 20px;
-  border-left-style: solid;
-  border-color: white;
-  background-color: #cce4f8;
-  opacity: 0.92;
+  color: white;
   text-align: center;
   position: sticky;
   top: 0;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .8);
+  background: none;
+  position: absolute;
+}
+.list {
+ font-size: 20px;
 }
 
 .options header nav{
@@ -37,6 +36,9 @@ body {
   align-items: center;
   }
 
+.header-title-text {
+font-size: 25px;
+}
 .header_home {
     font-size: 100px;
     line-height: 60px;
@@ -50,7 +52,7 @@ body {
   font-size: 2rem;
   color: #0a2f45;
   text-transform: uppercase;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Georgia', sans-serif;
 }
 
 h1 {
@@ -189,5 +191,76 @@ box-shadow:
   padding: 10px 16px;
   margin: 18px auto;
   outline: none;
+}
+
+.form-popup {
+  width: 350px;
+  background: #fff;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #333;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+}
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+
+}
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.form-container input[type=text], .form-container input[type=password],.form-container input[type=phone], .form-container input[type=date], .form-container input[type=password], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+
+}
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+.open-form-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+.btn {
+  padding: 10px 60px;
+  background: #ffe;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 500;
+  border-radius: 30px;
+}
+.center {
+ color: white;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ font-weight: bold;
+ font-family: Georgia;
+ font-size: 100px;
+}
+.text {
+position: absolute;
+font-size: 30px;
 }
 
