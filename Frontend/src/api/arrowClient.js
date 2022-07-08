@@ -83,7 +83,7 @@ export default class ArrowClient extends BaseClass {
 
      async deleteArrow(messageId, errorCallback) {
              try {
-                 const response = await this.client.delete(`/message/delete/${messageId}`,{
+                 const response = await this.client.delete(`/message/${messageId}`,{
                  messageId: messageId
                  });
                  return response.data;

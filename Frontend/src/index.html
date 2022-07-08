@@ -15,7 +15,7 @@
             <div class="menu">
                 <ul>
                     <li class="list" onclick="openForm()">New Arrow</li>
-                    <li class="list" id="allArrows">All</li>
+                    <li class="list" onclick="openAllMessagesForm()" id="allArrows">All</li>
                     <li class="list">Family</li>
                     <li class="list">Friends</li>
                     <li class="list">Colleagues</li>
@@ -26,7 +26,7 @@
             <div class="login">
                 <ul>
                     <li onclick="formToggle()">Login</li>
-                    <li onclick="formToggle()">More</li>
+                    <li class="list" onclick="deleteDataStore()">Delete All Arrows</li>
                 </ul>
             </div>
                 </nav>
@@ -37,15 +37,15 @@
     <p2 class="text">The simplest way to remember important dates.</p2>
 </div>
 </body>
+
     <div class="container">
         <div class="form-popup" id="createArrowForm">
         <h2>New Arrow</h2>
-                <form class="form-container">
+                <form class="form-container" id="create-arrow-form">
                     <p class="form-field">
                         <label>Recipient</label>-->
                         <label for="recipientName">Send To:</label>
                         <input type="text" id="recipientName" name="recipientName" placeholder="Name" required>
-                        <!--                        <label for="category">Choose a category for your target:</label>-->
                         <label for="phone">Phone:</label>
                         <input type="phone" id="phone" name="phone" placeholder="000-000-0000" required>
                         <label for="category">Relationship:</label>
@@ -54,32 +54,102 @@
                             <option value="friends">Friend</option>
                             <option value="family">Family</option>
                         </select>
-                        <!--                        <label for="username">Username:</label>-->
                         <label for="sendDate">Date To Send:</label>
                         <input type="date" id="sendDate" name="sendDate" placeholder="send date" required>
                         <label for="content">Message:</label>
-                        <input type="text" id="content" name="content" placeholder="Your message here...." required>
+                        <textarea rows="5" cols="30" id="content" placeholder="Your message here...." ></textarea>
                         <input type="hidden" name="starred" value="notStarred">
                         <input type="checkbox" id="starred" name="starred" value="starred">
                         <label for="starred">Star this Arrow</label>
                     </p>
-                    <!-- This is to connect to add new Arrow method in arrow Client-->
-                    <button type="submit" class="btn" onclick="addNewArrow()">Create Arrow</button>
+                    <button type="submit" class="btn" id="create-arrow">Create Arrow</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                 </form>
         </div>
     </div>
+
+<!--<div class="container">
+    <div class="form-popup" id="allMessagesForm">
+        <h2>All arrows</h2>
+        <div id="allMessagesToAdd">
+        </div>
+        <button type="button" class="btn cancel" onclick="closeAllMessagesForm()">Close</button>
+    </div>
+</div>-->
+
+    <div class="form-popup" id="allMessagesForm">
+        <h2>All arrows</h2>
+        <table class="myTable">
+            <thead>
+            <tr>
+                <th>Recipient: </th>
+                <th>Phone Number: </th>
+                <th>starred</th>
+                <th>Category: </th>
+                <th>Date To Send: </th>
+                <th>Message: </th>
+            </tr>
+            </thead>
+            <tbody id="allMessagesToAdd">
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn cancel" onclick="closeAllMessagesForm()">Close</button>
+    </div>
+
+
 <script>
     document.getElementById("content").style.height="200px";
     document.getElementById("content").style.fontSize="14pt";
     let popup = document.getElementById("createArrowForm");
 
+    let popupArrowForm = document.getElementById("allMessagesForm");
+
+    function openAllMessagesForm() {
+        popup.classList.remove("open-form-popup");
+        popupArrowForm.classList.add("open-form-popup");
+    }
+    function closeAllMessagesForm() {
+        popupArrowForm.classList.remove("open-form-popup");
+    }
     function openForm() {
         popup.classList.add("open-form-popup");
+        popupArrowForm.classList.remove("open-form-popup");
     }
     function closeForm() {
         popup.classList.remove("open-form-popup");
 
+    }
+    function deleteDataStore() {
+        localStorage.clear();
+    }
+    function createTable() {
+
+        let i;
+        const books = ["Title", "Author", "Read?"];
+        const table = document.createElement("TABLE");  //makes a table element for the page
+
+        for(i = 0; i < books.length; i++) {
+            const row = table.insertRow(i);
+            row.insertCell(0).innerHTML = books[i].title;
+            row.insertCell(1).innerHTML = books[i].author;
+            row.insertCell(2).innerHTML = books[i].alreadyRead;
+        }
+
+        const header = table.createTHead();
+        const headerRow = header.insertRow(0);
+        for(i = 0; i < books.length; i++) {
+            headerRow.insertCell(i).innerHTML = books[i];
+        }
+
+        document.body.append(table);
+    }
+    function tableToggleFunction() {
+        const x = document.getElementById("myTable");
+        if (x.style.display === "none") {
+            x.style.display = "table";
+        }
     }
 </script>
 </html>
