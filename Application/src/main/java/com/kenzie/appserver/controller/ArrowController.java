@@ -36,8 +36,14 @@ public class ArrowController {
             status = "sent";
         }
 
+        String id = arrowCreateRequest.getMessageId();
+
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
+
         Arrow arrow = new Arrow("defaultUserId",
-                UUID.randomUUID().toString(),
+                id,
                 arrowCreateRequest.getRecipientName(),
                 arrowCreateRequest.getPhone(),
                 arrowCreateRequest.getStarred(),

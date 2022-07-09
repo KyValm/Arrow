@@ -7,8 +7,8 @@ import java.time.LocalDate;
 public class ArrowCreateRequest {
 //    @JsonProperty("userId")
 //    private String userId = "defaultUserId";
-//    @JsonProperty("messageId")
-//    private String messageId = null;
+    @JsonProperty("messageId")
+    private String messageId = null;
     @JsonProperty("recipientName")
     private String recipientName;
     @JsonProperty("phone")
@@ -26,8 +26,8 @@ public class ArrowCreateRequest {
 
 
 //    public String getUserId() { return userId; }
-//
-//    public String getMessageId() { return messageId; }
+
+    public String getMessageId() { return messageId; }
 
     public String getRecipientName() { return recipientName; }
 
@@ -42,8 +42,8 @@ public class ArrowCreateRequest {
     public String getSendDate() { return sendDate; }
 
 //    public void setUserId(String userId) { this.userId = userId; }
-//
-//    public void setMessageId(String messageId) {this.messageId = messageId; }
+
+    public void setMessageId(String messageId) {this.messageId = messageId; }
 
     public void setRecipientName(String recipientName) { this.recipientName = recipientName; }
 

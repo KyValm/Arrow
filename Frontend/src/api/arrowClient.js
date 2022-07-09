@@ -39,7 +39,7 @@ export default class ArrowClient extends BaseClass {
 
     async updateArrow(messageId, recipientName, phone, starred, category, content, sendDate, errorCallback) {
             try {
-                const response = await this.client.put(`message`, {
+                const response = await this.client.post(`message`, {
                 messageId: messageId,
                 recipientName: recipientName,
                 phone: phone,
@@ -101,8 +101,5 @@ export default class ArrowClient extends BaseClass {
                  errorCallback(method + " failed - " + error);
              }
          }
-
-
-
 
 }
