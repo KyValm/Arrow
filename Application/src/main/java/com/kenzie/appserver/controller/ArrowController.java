@@ -36,8 +36,14 @@ public class ArrowController {
             status = "sent";
         }
 
+        String id = arrowCreateRequest.getMessageId();
+
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
+
         Arrow arrow = new Arrow("defaultUserId",
-                UUID.randomUUID().toString(),
+                id,
                 arrowCreateRequest.getRecipientName(),
                 arrowCreateRequest.getPhone(),
                 arrowCreateRequest.getStarred(),
@@ -118,7 +124,7 @@ public class ArrowController {
     }
 
 
-    @DeleteMapping("/{messageId}")
+    @DeleteMapping("/delete/{messageId}")
     public ResponseEntity deleteArrowById(@PathVariable("messageId") String messageId) {
         arrowService.deleteArrow(messageId);
         return ResponseEntity.noContent().build();

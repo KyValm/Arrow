@@ -9,35 +9,37 @@ class ExamplePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onCreateArrow', 'getAllMessages'], this);
+        this.bindClassMethods(['onCreateArrow', 'getAllMessages', 'onRefresh', 'updateArrow', 'onDeleteArrow'], this);
         this.dataStore = new DataStore();
     }
 
     /**
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
-    async mount() {
+    mount() {
         document.getElementById('create-arrow-form').addEventListener('submit', this.onCreateArrow);
         document.getElementById('allArrows').addEventListener('click', this.getAllMessages);
-        /*document.getElementById('delete-arrow').addEventListener('click', this.onDeleteArrow);*/
+        document.getElementById('update-create-arrow').addEventListener('submit', this.updateArrow);
+        document.getElementById('delete-arrow').addEventListener('click', this.onDeleteArrow);
         this.client = new ArrowClient();
-        this.dataStore.addChangeListener(this.getAllMessages());
-        await this.fetchMessages();
+        this.dataStore.addChangeListener(this.getAllMessages);
+        this.fetchMessages();
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async fetchMessages() {
-        const messages = await this.client.getArrows(this.errorHandler)
+        const messages = await this.client.getArrows(this.errorHandler);
 
         if(messages && messages.length > 0) {
             for (let message of messages) {
-                message = await this.fetchMessage(message.messageId);
+                message.message = await this.fetchMessage(message.messageId);
             }
 
         }
 
         this.dataStore.set("messages", messages);
+        localStorage.setItem("messages", messages);
     }
 
     async fetchMessage(messageId) {
@@ -46,12 +48,17 @@ class ExamplePage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async onCreateArrow() {
+    onRefresh() {
+        this.fetchMessages();
+    }
+
+    async onCreateArrow(event) {
 
         event.preventDefault();
 
         let createButton = document.getElementById('create-arrow');
 
+        const messageId = document.getElementById('messageId').value;
         const recipientName = document.getElementById('recipientName').value;
         const phone = document.getElementById('phone').value;
         const category = document.getElementById('category').value;
@@ -59,53 +66,87 @@ class ExamplePage extends BaseClass {
         const content = document.getElementById('content').value;
         const starred = document.getElementById('starred').value;
 
-        const arrow = await this.client.addNewArrow(recipientName, phone, starred, category, content, date, starred);
+        const arrow = await this.client.addNewArrow(recipientName, phone, starred, category, content, date);
 
-        document.getElementById("create-arrow-form").reset();
         createButton.innerText = 'Create';
+        this.onRefresh();
+        closeForm();
     }
 
-    async getAllMessages() {
+    getAllMessages() {
+
+        localStorage.clear();
+
         let messagesHtml = "";
+
         const messages = this.dataStore.get("messages");
 
         if(messages) {
             for (const message of messages) {
                 const existingMessage = document.getElementById(message.messageId);
                 if(!existingMessage) {
-                    messagesHtml += `            
+                    messagesHtml += `                                              
                     <tr class="card" id="${message.messageId}">
+                        <td hidden>${message.messageId}</td>
                         <td>${message.recipientName}</td>
                         <td>${message.phone}</td>                     
                         <td>${message.category}</td>
                         <td>${message.sendDate}</td>
-                        <td>${message.starred}</td>
                         <td>${message.content}</td>
-                        <td hidden>${message.messageId}</td>
-                        <button type="button" id="delete-arrow" onclick="this.client.deleteArrow(${message.messageId})">Delete</button>
-                        <button type="button">Update</button>
+                        <td>${message.starred}</td
+                        <td hidden></td>
+                        <td><input class="btn" id="update-arrow" type="button" value="Update" onclick="openUpdateMessageForm(this)"></td>
                     </tr>                            
                 `;
                 }
             }
         }
         document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
+        document.getElementById("create-arrow-form").reset();
     }
 
-    async onDeleteArrow(messageId) {
+    async onDeleteArrow(event) {
 
-        document.getElementById(messageId).innerHTML = "";
+        event.preventDefault();
 
-        return await this.client.deleteArrow(messageId, this.errorHandler);
+        closeAllMessagesForm();
+
+        const messageIdToDelete = localStorage.getItem('messageToDelete');
+
+        await this.client.deleteArrow(messageIdToDelete, this.errorHandler);
+
+       document.getElementById(messageIdToDelete).remove();
+
+        closeUpdateMessageForm()
+        this.onRefresh();
     }
 
+    async updateArrow(event) {
+
+        event.preventDefault();
+
+        const messageId = document.getElementById('updateMessageId').value;
+        const recipientName = document.getElementById('updateRecipientName').value;
+        const phone = document.getElementById('updatePhone').value;
+        const category = document.getElementById('updateCategory').value;
+        const date = document.getElementById('updateSendDate').value;
+        const content = document.getElementById('updateContent').value;
+        const starred = document.getElementById('updateStarred').value;
+
+        const arrow = await this.client.updateArrow(messageId, recipientName, phone, starred, category, content, date);
+
+
+        document.getElementById("update-arrow-form").reset();
+        closeUpdateMessageForm();
+        this.onRefresh();
+    }
  }
 /**
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
     const examplePage = new ExamplePage();
-    await examplePage.mount();
+    examplePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
