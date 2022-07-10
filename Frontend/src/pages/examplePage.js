@@ -9,7 +9,7 @@ class ExamplePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onCreateArrow', 'getAllMessages', 'onRefresh', 'updateArrow', 'onDeleteArrow'], this);
+        this.bindClassMethods(['onCreateArrow', 'getAllMessages', 'onRefresh', 'updateArrow', 'onDeleteArrow', 'getAllMessagesByCategory'], this);
         this.dataStore = new DataStore();
     }
 
@@ -21,6 +21,11 @@ class ExamplePage extends BaseClass {
         document.getElementById('allArrows').addEventListener('click', this.getAllMessages);
         document.getElementById('update-create-arrow').addEventListener('submit', this.updateArrow);
         document.getElementById('delete-arrow').addEventListener('click', this.onDeleteArrow);
+        document.getElementById('family-arrow').addEventListener('click', this.getAllMessagesByCategory);
+        document.getElementById('friends-arrow').addEventListener('click', this.getAllMessagesByCategory);
+        document.getElementById('colleagues-arrow').addEventListener('click', this.getAllMessagesByCategory);
+        document.getElementById('sent-arrow').addEventListener('click', this.getAllMessagesByCategory);
+        document.getElementById('starred-arrow').addEventListener('click', this.getAllMessagesByCategory);
         this.client = new ArrowClient();
         this.dataStore.addChangeListener(this.getAllMessages);
         this.fetchMessages();
@@ -72,12 +77,30 @@ class ExamplePage extends BaseClass {
         this.onRefresh();
         closeForm();
     }
-
+    ///delete entire table and renew it
     getAllMessages() {
 
-        localStorage.clear();
-
-        let messagesHtml = "";
+        let messagesHtml = "<div class=\"container\">" +
+            "    <div class=\"form-popup\" id=\"allMessagesForm\">\n" +
+            "        <h2>Arrows</h2>\n" +
+            "        <table id=\"myTable\" class=\"myTable\">\n" +
+            "            <thead>\n" +
+            "                <tr>\n" +
+            "                    <th>Recipient: </th>\n" +
+            "                    <th>Phone Number: </th>\n" +
+            "                    <th>Category:</th>\n" +
+            "                    <th>Date To Send: </th>\n" +
+            "                    <th>Message: </th>\n" +
+            "                    <th>Starred: </th>\n" +
+            "                </tr>\n" +
+            "            </thead>\n" +
+            "            <tbody id=\"allMessagesToAdd\">\n" +
+            "\n" +
+            "            </tbody>\n" +
+            "        </table>\n" +
+            "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeAllMessagesForm()\">Close</button>\n" +
+            "    </div>\n" +
+            "</div>";
 
         const messages = this.dataStore.get("messages");
 
@@ -105,6 +128,57 @@ class ExamplePage extends BaseClass {
         document.getElementById("create-arrow-form").reset();
     }
 
+    getAllMessagesByCategory() {
+
+        document.getElementById("myTable").remove();
+
+        let messagesHtml = "<div class=\"container\">\n" +
+            "    <div class=\"form-popup\" id=\"allMessagesForm\">\n" +
+            "        <h2>Arrows</h2>\n" +
+            "        <table id=\"myTable\" class=\"myTable\">\n" +
+            "            <thead>\n" +
+            "                <tr>\n" +
+            "                    <th>Recipient: </th>\n" +
+            "                    <th>Phone Number: </th>\n" +
+            "                    <th>Category:</th>\n" +
+            "                    <th>Date To Send: </th>\n" +
+            "                    <th>Message: </th>\n" +
+            "                    <th>Starred: </th>\n" +
+            "                </tr>\n" +
+            "            </thead>\n" +
+            "            <tbody id=\"allMessagesToAdd\">\n" +
+            "\n" +
+            "            </tbody>\n" +
+            "        </table>\n" +
+            "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeAllMessagesForm()\">Close</button>\n" +
+            "    </div>\n" +
+            "</div>";
+
+        const messages = this.dataStore.get("messages");
+
+        if(messages) {
+            for (const message of messages) {
+                const existingMessage = document.getElementById(message.messageId);
+                   if(message.category === "family" && !existingMessage) {
+                       messagesHtml += `                                              
+                    <tr class="card" id="${message.messageId}">
+                        <td hidden>${message.messageId}</td>
+                        <td>${message.recipientName}</td>
+                        <td>${message.phone}</td>                     
+                        <td>${message.category}</td>
+                        <td>${message.sendDate}</td>
+                        <td>${message.content}</td>
+                        <td>${message.starred}</td
+                        <td hidden></td>
+                        <td><input class="btn" id="update-arrow" type="button" value="Update" onclick="openUpdateMessageForm(this)"></td>
+                    </tr>                            
+                `;
+                   }
+            }
+        }
+        document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
+    }
+
     async onDeleteArrow(event) {
 
         event.preventDefault();
@@ -121,9 +195,9 @@ class ExamplePage extends BaseClass {
         this.onRefresh();
     }
 
-    async updateArrow(event) {
+    async updateArrow() {
 
-        event.preventDefault();
+        localStorage.clear();
 
         const messageId = document.getElementById('updateMessageId').value;
         const recipientName = document.getElementById('updateRecipientName').value;
@@ -135,7 +209,7 @@ class ExamplePage extends BaseClass {
 
         const arrow = await this.client.updateArrow(messageId, recipientName, phone, starred, category, content, date);
 
-
+        document.getElementById('messageId').remove();
         document.getElementById("update-arrow-form").reset();
         closeUpdateMessageForm();
         this.onRefresh();
