@@ -80,27 +80,7 @@ class ExamplePage extends BaseClass {
     ///delete entire table and renew it
     getAllMessages() {
 
-        let messagesHtml = "<div class=\"container\">" +
-            "    <div class=\"form-popup\" id=\"allMessagesForm\">\n" +
-            "        <h2>Arrows</h2>\n" +
-            "        <table id=\"myTable\" class=\"myTable\">\n" +
-            "            <thead>\n" +
-            "                <tr>\n" +
-            "                    <th>Recipient: </th>\n" +
-            "                    <th>Phone Number: </th>\n" +
-            "                    <th>Category:</th>\n" +
-            "                    <th>Date To Send: </th>\n" +
-            "                    <th>Message: </th>\n" +
-            "                    <th>Starred: </th>\n" +
-            "                </tr>\n" +
-            "            </thead>\n" +
-            "            <tbody id=\"allMessagesToAdd\">\n" +
-            "\n" +
-            "            </tbody>\n" +
-            "        </table>\n" +
-            "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeAllMessagesForm()\">Close</button>\n" +
-            "    </div>\n" +
-            "</div>";
+        let messagesHtml = "";
 
         const messages = this.dataStore.get("messages");
 
@@ -130,29 +110,7 @@ class ExamplePage extends BaseClass {
 
     getAllMessagesByCategory() {
 
-        document.getElementById("myTable").remove();
-
-        let messagesHtml = "<div class=\"container\">\n" +
-            "    <div class=\"form-popup\" id=\"allMessagesForm\">\n" +
-            "        <h2>Arrows</h2>\n" +
-            "        <table id=\"myTable\" class=\"myTable\">\n" +
-            "            <thead>\n" +
-            "                <tr>\n" +
-            "                    <th>Recipient: </th>\n" +
-            "                    <th>Phone Number: </th>\n" +
-            "                    <th>Category:</th>\n" +
-            "                    <th>Date To Send: </th>\n" +
-            "                    <th>Message: </th>\n" +
-            "                    <th>Starred: </th>\n" +
-            "                </tr>\n" +
-            "            </thead>\n" +
-            "            <tbody id=\"allMessagesToAdd\">\n" +
-            "\n" +
-            "            </tbody>\n" +
-            "        </table>\n" +
-            "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeAllMessagesForm()\">Close</button>\n" +
-            "    </div>\n" +
-            "</div>";
+        let messagesHtml = "";
 
         const messages = this.dataStore.get("messages");
 
