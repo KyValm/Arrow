@@ -16,11 +16,11 @@
                 <ul>
                     <li class="list" onclick="openForm()">New Arrow</li>
                     <li class="list" onclick="openAllMessagesForm()" id="allArrows">All</li>
-                    <li class="list">Family</li>
-                    <li class="list">Friends</li>
-                    <li class="list">Colleagues</li>
-                    <li class="list">AllStars</li>
-                    <li class="list">Sent</li>
+                    <li class="list" onclick="openAllMessagesForm()" id="family-arrow" value="family">Family</li>
+                    <li class="list" onclick="openAllMessagesForm()" id="friends-arrow" value="friends">Friends</li>
+                    <li class="list" onclick="openAllMessagesForm()" id="colleagues-arrow" value="colleagues">Colleagues</li>
+                    <li class="list" onclick="openAllMessagesForm()" id="starred-arrow" value="starred">AllStars</li>
+                    <li class="list" onclick="openAllMessagesForm()" id="sent-arrow" value="sent">Sent</li>
                 </ul>
             </div>
             <img src="/resources/arrowLogo.png" alt="logo" />
@@ -63,27 +63,27 @@
                 </form>
         </div>
 </div>
-<div class="container">
-    <div class="form-popup" id="allMessagesForm">
-        <h2>All arrows</h2>
-        <table id="myTable" class="myTable">
-            <thead>
-                <tr>
-                    <th>Recipient: </th>
-                    <th>Phone Number: </th>
-                    <th>Category:</th>
-                    <th>Date To Send: </th>
-                    <th>Message: </th>
-                    <th>Starred: </th>
-                </tr>
-            </thead>
-            <tbody id="allMessagesToAdd">
+<!--<div class="container">-->
+<!--    <div class="form-popup" id="allMessagesForm">-->
+<!--        <h2>Arrows</h2>-->
+<!--        <table id="myTable" class="myTable">-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th>Recipient: </th>-->
+<!--                    <th>Phone Number: </th>-->
+<!--                    <th>Category:</th>-->
+<!--                    <th>Date To Send: </th>-->
+<!--                    <th>Message: </th>-->
+<!--                    <th>Starred: </th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody id="allMessagesToAdd">-->
 
-            </tbody>
-        </table>
-        <button type="button" class="btn cancel" onclick="closeAllMessagesForm()">Close</button>
-    </div>
-</div>
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        <button type="button" class="btn cancel" onclick="closeAllMessagesForm()">Close</button>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="container">
     <div class="form-popup" id="updateArrowForm">
@@ -104,7 +104,7 @@
                 </select>
                 <label class="list" for="sendDate">Date To Send:</label>
                 <input class="list" type="date" id="updateSendDate" name="sendDate" placeholder="send date" required>
-                <label class="list" for="content">Message:</label>
+                <label class="list" for="content">Message: </label>
                 <textarea rows="5" cols="30" id="updateContent" placeholder="Your message here...." ></textarea>
                 <input class="list" type="checkbox" id="updateStarred" name="starred" value="starred">
                 <label class="list" for="starred">Star this Arrow</label>
