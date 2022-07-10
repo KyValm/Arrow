@@ -10,7 +10,7 @@
     <header>
         <nav>
             <div class="header-title-text" onclick="alert('Call Create Arrow Form!')">
-                <h1>Arrow</h1>
+                <h1 class="header-title-text"> ARROW</h1>
             </div>
                 <div class="menu">
                 <ul>
@@ -23,6 +23,7 @@
                     <li class="list" onclick="openAllMessagesForm()" id="sent-arrow" value="sent">Sent</li>
                 </ul>
             </div>
+            <img src="/resources/arrowLogo.png" alt="logo" />
         </nav>
     </header>
 </div>
@@ -49,7 +50,8 @@
                             <option class="list" value="friends">Friend</option>
                             <option class="list" value="family">Family</option>
                         </select>
-                        <label class="list" for="sendDate">Date To Send: </label>
+                        <br> <br>
+                        <label class="list" for="sendDate">Date To Send:</label>
                         <input class="list" type="date" id="sendDate" name="sendDate" placeholder="send date" required>
                         <label class="list" for="content">Message:</label>
                         <textarea rows="5" cols="30" id="content" placeholder="Your message here...." ></textarea>
@@ -57,7 +59,7 @@
                         <label class="list" for="starred">Star this Arrow</label>
                     </p>
                     <button type="submit" class="btn" id="create-arrow">Create Arrow</button>
-                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                    <button type="button" class="closeBtn" onclick="closeForm()">Close</button>
                 </form>
         </div>
 </div>
@@ -108,8 +110,8 @@
                 <label class="list" for="starred">Star this Arrow</label>
             </p>
             <button type="submit" class="btn" id="update-create-arrow">Update Arrow</button>
-            <button type="button" class="btn" id="delete-arrow"> Delete Arrow</button>
-            <button type="button" class="btn" onclick="closeUpdateMessageForm()">Close</button>
+            <button type="button" class="closeBtn" id="delete-arrow"> Delete Arrow</button>
+            <button type="button" class="closeBtn" onclick="closeUpdateMessageForm()">Close</button>
         </form>
     </div>
 </div>
