@@ -46,7 +46,7 @@ class ArrowControllerTest {
                 "starred",
                 "friends",
                 "test message",
-                "10-14-2022",
+                "2022-07-12",
                 "pending");
 
         ArrowCreateRequest arrowCreateRequest = new ArrowCreateRequest();
@@ -95,7 +95,7 @@ class ArrowControllerTest {
                 "starred",
                 "friends",
                 "test message",
-                "10-14-2022",
+                "2022-07-12",
                 "pending");
 
         Arrow arrow1 = arrowService.addNewArrow(arrow);
@@ -137,23 +137,6 @@ class ArrowControllerTest {
 
     }
 
-    //TODO: add more tests below
-
-
-//    @Test
-//    public void getArrowByCategory_ArrowExists() throws Exception {
-//        // GIVEN
-//        String userId = randomUUID().toString();
-//        String messageId= randomUUID().toString();
-//        String recipientName = "John Test";
-//        String phone = "909-000-0000";
-//        String starred = "starred";
-//        String category = "friends";
-//        String content = "test message";
-//        String sendDate = "10-14-2022";
-//}
-
-
     @Test
     public void deleteArrow_DeleteSuccessful() throws Exception {
         // GIVEN
@@ -164,13 +147,13 @@ class ArrowControllerTest {
                 "starred",
                 "friends",
                 "test message",
-                "10-14-2022",
+                "2022-07-12",
                 "pending");
 
         Arrow persistedArrow = arrowService.addNewArrow(arrow);
 
         // WHEN
-        mvc.perform(delete("/message/delete{id}", persistedArrow.getMessageId())
+        mvc.perform(delete("/message/delete/{id}", persistedArrow.getMessageId())
                         .accept(MediaType.APPLICATION_JSON))
                 // THEN
                 .andExpect(status().isNoContent());
@@ -188,8 +171,10 @@ class ArrowControllerTest {
                 "starred",
                 "friends",
                 "test message",
-                "10-14-2022",
+                "2022-07-12",
                 "pending");
+
+        Arrow persistedArrow = arrowService.addNewArrow(arrow);
 
         mvc.perform(get("/message/{id}", id)
                 .accept(MediaType.APPLICATION_JSON))
@@ -197,7 +182,34 @@ class ArrowControllerTest {
     }
     @Test
     public void getAll_Contains_Messages() throws Exception {
-        mvc.perform(get("/getAllMessages")
+
+        String id = UUID.randomUUID().toString();
+
+        Arrow arrow = new Arrow(randomUUID().toString(),
+                id,
+                "John Test",
+                "909-000-0000",
+                "starred",
+                "friends",
+                "test message",
+                "2022-07-12",
+                "pending");
+
+        Arrow arrow2 = new Arrow(randomUUID().toString(),
+                UUID.randomUUID().toString(),
+                "Test",
+                "909-000-0000",
+                "starred",
+                "friends",
+                "test message",
+                "2022-07-12",
+                "pending");
+
+        Arrow persistedArrow = arrowService.addNewArrow(arrow);
+
+        Arrow persistedArrow2 = arrowService.addNewArrow(arrow);
+
+        mvc.perform(get("/message/getAllMessages")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

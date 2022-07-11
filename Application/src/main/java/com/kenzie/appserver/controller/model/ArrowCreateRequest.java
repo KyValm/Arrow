@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 
 public class ArrowCreateRequest {
-//    @JsonProperty("userId")
-//    private String userId = "defaultUserId";
+    @JsonProperty("userId")
+    private String userId = "defaultUserId";
     @JsonProperty("messageId")
     private String messageId = null;
     @JsonProperty("recipientName")
@@ -24,8 +24,7 @@ public class ArrowCreateRequest {
     @JsonProperty("status")
     private String status;
 
-
-//    public String getUserId() { return userId; }
+    public String getUserId() { return userId; }
 
     public String getMessageId() { return messageId; }
 
@@ -41,7 +40,7 @@ public class ArrowCreateRequest {
 
     public String getSendDate() { return sendDate; }
 
-//    public void setUserId(String userId) { this.userId = userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
     public void setMessageId(String messageId) {this.messageId = messageId; }
 

@@ -68,7 +68,7 @@ public class ArrowService {
     }
 
     public Arrow findArrowById(String messageId){
-        Arrow arrowFromBackendService = arrowRepository
+        return arrowRepository
                 .findById(messageId)
                 .map(arrow -> new Arrow(arrow.getUserId(),
                         arrow.getMessageId(),
@@ -80,8 +80,6 @@ public class ArrowService {
                         arrow.getSendDate(),
                         arrow.getStatus()))
                 .orElse(null);
-
-        return arrowFromBackendService;
     }
 
 

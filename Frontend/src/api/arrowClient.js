@@ -1,7 +1,7 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios';
 
-// Client to Call the Music Service
+// Client to Call the Arrow Service
 
 export default class ArrowClient extends BaseClass {
 
@@ -101,5 +101,4 @@ export default class ArrowClient extends BaseClass {
                  errorCallback(method + " failed - " + error);
              }
          }
-
 }

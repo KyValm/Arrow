@@ -4,14 +4,14 @@
     <script type="text/javascript" src="examplePage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <title></title>
 </head>
 <body>
-<!--<img src="css/resources/msg.svg" alt="My msg SVG"/>-->
 <div class="options">
     <header>
         <nav>
-            <div class="header-title-text" onclick="alert('Call Create Arrow Form!')">
-                <h1 class="header-title-text"> ARROW</h1>
+            <div class="header-title-text">
+                <h1 class="header-title-text">ARROW</h1>
             </div>
                 <div class="menu" id="menu">
                 <ul>
@@ -24,16 +24,15 @@
                     <li class="list" onclick="openAllMessagesForm()" id="sent-arrow" value="sent">Sent</li>
                 </ul>
             </div>
-           <!-- <img src="/resources/arrowLogo.png" alt="logo" />-->
+            <img src="css/resources/logo.png" alt="logo"/>
         </nav>
     </header>
 </div>
 <div class="center">
     <p>Welcome to Arrow,</p>
-    <p2 class="text">The simplest way to remember important dates.</p2>
+    <p class="text">The simplest way to remember important dates.</p>
 </div>
 </body>
-
 <div class="container">
     <div class="form-popup" id="createArrowForm">
         <h2>New Arrow</h2>
@@ -65,22 +64,24 @@
                 </form>
         </div>
 </div>
-<div class="container">
+<div class="container" id="tableContainer">
     <div class="form-popup" id="allMessagesForm">
-        <h2>Arrows</h2>
+        <h2>Arrows </h2>
+        <div class="filterDiv">
+            <input type="text" id="filterInput" onkeyup="filterFunction()" placeholder="Filter by Name">
+        </div>
         <table id="myTable" class="myTable">
             <thead>
                 <tr>
-                    <th class="list">Recipient: </th>
-                    <th class="list">Phone Number: </th>
-                    <th class="list">Category: </th>
-                    <th class="list">Date To Send: </th>
-                    <th class="list">Message: </th>
-                    <th class="list">Starred: </th>
+                    <th onclick="sortTable(0)">Recipient: </th>
+                    <th onclick="sortTable(1)">Phone Number: </th>
+                    <th onclick="sortTable(2)">Category:</th>
+                    <th onclick="sortTable(3)">Date To Send: </th>
+                    <th onclick="sortTable(4)">Message: </th>
+                    <th onclick="sortTable(5)">Starred: </th>
                 </tr>
             </thead>
             <tbody id="allMessagesToAdd">
-
             </tbody>
         </table>
         <button id="formCloseBtn" type="button" class="btn" onclick="closeAllMessagesForm()">Close</button>
@@ -108,7 +109,7 @@
                 <label class="list1" for="sendDate">Date To Send:</label>
                 <label for="updateSendDate"></label><input class="list1" type="date" id="updateSendDate" name="sendDate" placeholder="send date" required>
                 <label class="list1" for="content">Message: </label>
-                <label for="updateContent"></label><textarea rows="5" cols="30" id="updateContent" placeholder="Your message here...." ></textarea>
+                <textarea rows="5" cols="30" id="updateContent" placeholder="Your message here...." required></textarea>
                 <br><br>
                 <label for="updateStarred"></label>
                 <input class="list1" type="checkbox" id="updateStarred" name="starred" value="starred">
@@ -150,6 +151,7 @@
 
         popup.classList.remove("open-form-popup");
         popupUpdateArrowForm.classList.add("open-form-popup");
+        popupArrowForm.classList.remove("open-form-popup");
     }
     function closeUpdateMessageForm() {
         popupUpdateArrowForm.classList.remove("open-form-popup");
@@ -172,8 +174,77 @@
     }
     function closeForm() {
         popup.classList.remove("open-form-popup");
+        popupArrowForm.classList.remove("open-form-popup");
         document.getElementById("create-arrow-form").reset();
 
     }
+    function sortTable(n) {
+        let table,
+            rows,
+            switching,
+            i,
+            x,
+            y,
+            shouldSwitch,
+            dir,
+            switchCount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < rows.length - 1; i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i + 1].getElementsByTagName("td")[n];
+                if (dir === "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchCount++;
+            } else {
+                if (switchCount === 0 && dir === "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function filterFunction() {
+        let input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("filterInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
 </script>
 </html>
