@@ -6,14 +6,12 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
-  font-size: 0.88rem;
-  background-image: url(/resources/backgroundNodes.jpg);
-  background-repeat: no-repeat;
+  /*font-family: "Roboto", sans-serif;*/
+  /*font-size: 0.88rem;*/
   background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
-  filter: blur (20px);
+  height: 1000px;
+  background: white url(resources/rainbow-vortex.svg) no-repeat center center fixed;
+  /*filter: blur (20px);*/
 }
 
 .options {
@@ -22,16 +20,26 @@ body {
   width: 84%;
   border-radius: 1px;
   border-width: 8px;
-  border-left-style: solid;
   border-color: #ff5733;
-  background-color: #89cff0;
+  background-color: white;
   opacity: 0.92;
   text-align: center;
   position: sticky;
   top: 0;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.8);
 }
+#menu li {
+  display: inline-block;
+  margin-right: 50px;
+}
+
 .list {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  background-color: #ffc87e;
+}
+.list1 {
+  font-family: "Roboto", sans-serif;
   font-size: 20px;
 }
 
@@ -317,7 +325,7 @@ tr:nth-child(odd) {
   background-color: #cce4f8;
 }
 tr:nth-child(even) {
-  background-color: white;
+  background-color: #cce4f8;
 }
 #myTable tr:hover td {
   background-color: #12355d;
@@ -326,4 +334,7 @@ tr:nth-child(even) {
 #myTable th:hover {
   background-color: #12355d;
   color: white;
+}
+#formCloseBtn {
+  border: 3px #cce4f8;
 }

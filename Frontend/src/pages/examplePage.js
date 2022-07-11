@@ -9,7 +9,16 @@ class ExamplePage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onCreateArrow', 'getAllMessages', 'onRefresh', 'updateArrow', 'onDeleteArrow', 'getAllMessagesByCategory'], this);
+        this.bindClassMethods(['onCreateArrow',
+            'getAllMessages',
+            'onRefresh',
+            'onUpdateArrow',
+            'onDeleteArrow',
+            'getAllMessagesByFamilyCategory',
+            'getAllMessagesByFriendsCategory',
+            'getAllMessagesByColleaguesCategory',
+            'getAllMessagesBySentCategory',
+            'getAllMessagesByStarredCategory'], this);
         this.dataStore = new DataStore();
     }
 
@@ -19,13 +28,13 @@ class ExamplePage extends BaseClass {
     mount() {
         document.getElementById('create-arrow-form').addEventListener('submit', this.onCreateArrow);
         document.getElementById('allArrows').addEventListener('click', this.getAllMessages);
-        document.getElementById('update-create-arrow').addEventListener('submit', this.updateArrow);
+        document.getElementById('update-arrow-form').addEventListener('submit', this.onUpdateArrow);
         document.getElementById('delete-arrow').addEventListener('click', this.onDeleteArrow);
-        document.getElementById('family-arrow').addEventListener('click', this.getAllMessagesByCategory);
-        document.getElementById('friends-arrow').addEventListener('click', this.getAllMessagesByCategory);
-        document.getElementById('colleagues-arrow').addEventListener('click', this.getAllMessagesByCategory);
-        document.getElementById('sent-arrow').addEventListener('click', this.getAllMessagesByCategory);
-        document.getElementById('starred-arrow').addEventListener('click', this.getAllMessagesByCategory);
+        document.getElementById('family-arrow').addEventListener('click', this.getAllMessagesByFamilyCategory);
+        document.getElementById('friends-arrow').addEventListener('click', this.getAllMessagesByFriendsCategory);
+        document.getElementById('colleagues-arrow').addEventListener('click', this.getAllMessagesByColleaguesCategory);
+        document.getElementById('sent-arrow').addEventListener('click', this.getAllMessagesBySentCategory);
+        document.getElementById('starred-arrow').addEventListener('click', this.getAllMessagesByStarredCategory);
         this.client = new ArrowClient();
         this.dataStore.addChangeListener(this.getAllMessages);
         this.fetchMessages();
@@ -61,8 +70,6 @@ class ExamplePage extends BaseClass {
 
         event.preventDefault();
 
-        let createButton = document.getElementById('create-arrow');
-
         const messageId = document.getElementById('messageId').value;
         const recipientName = document.getElementById('recipientName').value;
         const phone = document.getElementById('phone').value;
@@ -73,34 +80,53 @@ class ExamplePage extends BaseClass {
 
         const arrow = await this.client.addNewArrow(recipientName, phone, starred, category, content, date);
 
-        createButton.innerText = 'Create';
         this.onRefresh();
         closeForm();
     }
-    ///delete entire table and renew it
+
+    async onDeleteArrow() {
+
+        event.preventDefault();
+
+        closeAllMessagesForm();
+
+        const messageIdToDelete = localStorage.getItem('messageToDelete');
+
+        await this.client.deleteArrow(messageIdToDelete, this.errorHandler);
+
+        document.getElementById(messageIdToDelete).remove();
+
+        closeUpdateMessageForm()
+        this.onRefresh();
+    }
+
+    async onUpdateArrow(event) {
+
+        event.preventDefault();
+
+        closeAllMessagesForm();
+
+        const messageId = document.getElementById('updateMessageId').value;
+        const recipientName = document.getElementById('updateRecipientName').value;
+        const phone = document.getElementById('updatePhone').value;
+        const category = document.getElementById('updateCategory').value;
+        const date = document.getElementById('updateSendDate').value;
+        const content = document.getElementById('updateContent').value;
+        const starred = document.getElementById('updateStarred').value;
+
+        await this.onDeleteArrow()
+
+        const arrow = await this.client.addNewArrow(recipientName, phone, starred, category, content, date);
+
+        this.onRefresh();
+        closeUpdateMessageForm();
+    }
+
     getAllMessages() {
 
-        let messagesHtml = "<div class=\"container\">" +
-            "    <div class=\"form-popup\" id=\"allMessagesForm\">\n" +
-            "        <h2>Arrows</h2>\n" +
-            "        <table id=\"myTable\" class=\"myTable\">\n" +
-            "            <thead>\n" +
-            "                <tr>\n" +
-            "                    <th>Recipient: </th>\n" +
-            "                    <th>Phone Number: </th>\n" +
-            "                    <th>Category:</th>\n" +
-            "                    <th>Date To Send: </th>\n" +
-            "                    <th>Message: </th>\n" +
-            "                    <th>Starred: </th>\n" +
-            "                </tr>\n" +
-            "            </thead>\n" +
-            "            <tbody id=\"allMessagesToAdd\">\n" +
-            "\n" +
-            "            </tbody>\n" +
-            "        </table>\n" +
-            "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeAllMessagesForm()\">Close</button>\n" +
-            "    </div>\n" +
-            "</div>";
+        localStorage.clear();
+
+        let messagesHtml = "";
 
         const messages = this.dataStore.get("messages");
 
@@ -121,6 +147,8 @@ class ExamplePage extends BaseClass {
                         <td><input class="btn" id="update-arrow" type="button" value="Update" onclick="openUpdateMessageForm(this)"></td>
                     </tr>                            
                 `;
+                } else {
+                    document.getElementById(message.messageId).style.visibility = "visible";
                 }
             }
         }
@@ -128,92 +156,101 @@ class ExamplePage extends BaseClass {
         document.getElementById("create-arrow-form").reset();
     }
 
-    getAllMessagesByCategory() {
+     async getAllMessagesByFamilyCategory() {
 
-        document.getElementById("myTable").remove();
+         localStorage.clear();
 
-        let messagesHtml = "<div class=\"container\">\n" +
-            "    <div class=\"form-popup\" id=\"allMessagesForm\">\n" +
-            "        <h2>Arrows</h2>\n" +
-            "        <table id=\"myTable\" class=\"myTable\">\n" +
-            "            <thead>\n" +
-            "                <tr>\n" +
-            "                    <th>Recipient: </th>\n" +
-            "                    <th>Phone Number: </th>\n" +
-            "                    <th>Category:</th>\n" +
-            "                    <th>Date To Send: </th>\n" +
-            "                    <th>Message: </th>\n" +
-            "                    <th>Starred: </th>\n" +
-            "                </tr>\n" +
-            "            </thead>\n" +
-            "            <tbody id=\"allMessagesToAdd\">\n" +
-            "\n" +
-            "            </tbody>\n" +
-            "        </table>\n" +
-            "        <button type=\"button\" class=\"btn cancel\" onclick=\"closeAllMessagesForm()\">Close</button>\n" +
-            "    </div>\n" +
-            "</div>";
+         let messagesHtml = "";
+
+         const messages = this.dataStore.get("messages");
+
+         if(messages) {
+             for (const message of messages) {
+                 document.getElementById(message.messageId).style.visibility = "collapse";
+                 if(message.category === "family") {
+                     document.getElementById(message.messageId).style.visibility = "visible";
+                 }
+             }
+        }
+        document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
+    }
+
+    async getAllMessagesByFriendsCategory() {
+
+        localStorage.clear();
+
+        let messagesHtml = "";
 
         const messages = this.dataStore.get("messages");
 
         if(messages) {
             for (const message of messages) {
-                const existingMessage = document.getElementById(message.messageId);
-                   if(message.category === "family" && !existingMessage) {
-                       messagesHtml += `                                              
-                    <tr class="card" id="${message.messageId}">
-                        <td hidden>${message.messageId}</td>
-                        <td>${message.recipientName}</td>
-                        <td>${message.phone}</td>                     
-                        <td>${message.category}</td>
-                        <td>${message.sendDate}</td>
-                        <td>${message.content}</td>
-                        <td>${message.starred}</td
-                        <td hidden></td>
-                        <td><input class="btn" id="update-arrow" type="button" value="Update" onclick="openUpdateMessageForm(this)"></td>
-                    </tr>                            
-                `;
-                   }
+                document.getElementById(message.messageId).style.visibility = "collapse";
+                if(message.category === "friends") {
+                    document.getElementById(message.messageId).style.visibility = "visible";
+                }
             }
         }
         document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
     }
 
-    async onDeleteArrow(event) {
-
-        event.preventDefault();
-
-        closeAllMessagesForm();
-
-        const messageIdToDelete = localStorage.getItem('messageToDelete');
-
-        await this.client.deleteArrow(messageIdToDelete, this.errorHandler);
-
-       document.getElementById(messageIdToDelete).remove();
-
-        closeUpdateMessageForm()
-        this.onRefresh();
-    }
-
-    async updateArrow() {
+    async getAllMessagesByColleaguesCategory() {
 
         localStorage.clear();
 
-        const messageId = document.getElementById('updateMessageId').value;
-        const recipientName = document.getElementById('updateRecipientName').value;
-        const phone = document.getElementById('updatePhone').value;
-        const category = document.getElementById('updateCategory').value;
-        const date = document.getElementById('updateSendDate').value;
-        const content = document.getElementById('updateContent').value;
-        const starred = document.getElementById('updateStarred').value;
+        let messagesHtml = "";
 
-        const arrow = await this.client.updateArrow(messageId, recipientName, phone, starred, category, content, date);
+        const messages = this.dataStore.get("messages");
 
-        document.getElementById('messageId').remove();
-        document.getElementById("update-arrow-form").reset();
-        closeUpdateMessageForm();
-        this.onRefresh();
+        if(messages) {
+            for (const message of messages) {
+                document.getElementById(message.messageId).style.visibility = "collapse";
+                if(message.category === "colleagues") {
+                    document.getElementById(message.messageId).style.visibility = "visible";
+                }
+            }
+        }
+        document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
     }
+
+    async getAllMessagesByStarredCategory() {
+
+        localStorage.clear();
+
+        let messagesHtml = "";
+
+        const messages = this.dataStore.get("messages");
+
+        if(messages) {
+            for (const message of messages) {
+                document.getElementById(message.messageId).style.visibility = "collapse";
+                if(message.starred === "starred") {
+                    document.getElementById(message.messageId).style.visibility = "visible";
+                }
+            }
+        }
+        document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
+    }
+
+    async getAllMessagesBySentCategory() {
+
+        localStorage.clear();
+
+        let messagesHtml = "";
+
+        const messages = this.dataStore.get("messages");
+
+        if(messages) {
+            for (const message of messages) {
+                document.getElementById(message.messageId).style.visibility = "collapse";
+                if(message.status === "sent") {
+                    document.getElementById(message.messageId).style.visibility = "visible"
+                }
+            }
+        }
+        document.getElementById("allMessagesToAdd").innerHTML += messagesHtml;
+    }
+
  }
 /**
  * Main method to run when the page contents have loaded.
