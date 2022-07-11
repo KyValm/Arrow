@@ -21,7 +21,6 @@ class ExamplePage extends BaseClass {
             'getAllMessagesByStarredCategory'], this);
         this.dataStore = new DataStore();
     }
-
     /**
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
@@ -49,9 +48,7 @@ class ExamplePage extends BaseClass {
             for (let message of messages) {
                 message.message = await this.fetchMessage(message.messageId);
             }
-
         }
-
         this.dataStore.set("messages", messages);
         localStorage.setItem("messages", messages);
     }
@@ -84,7 +81,7 @@ class ExamplePage extends BaseClass {
         closeForm();
     }
 
-    async onDeleteArrow() {
+    async onDeleteArrow(event) {
 
         event.preventDefault();
 
@@ -114,7 +111,11 @@ class ExamplePage extends BaseClass {
         const content = document.getElementById('updateContent').value;
         const starred = document.getElementById('updateStarred').value;
 
-        await this.onDeleteArrow()
+        document.getElementById(messageId).remove();
+
+        const messageIdToDelete = localStorage.getItem('messageToDelete');
+
+        await this.client.deleteArrow(messageIdToDelete, this.errorHandler);
 
         const arrow = await this.client.addNewArrow(recipientName, phone, starred, category, content, date);
 
@@ -224,7 +225,7 @@ class ExamplePage extends BaseClass {
         if(messages) {
             for (const message of messages) {
                 document.getElementById(message.messageId).style.visibility = "collapse";
-                if(message.starred === "starred") {
+                if(message.starred === "on") {
                     document.getElementById(message.messageId).style.visibility = "visible";
                 }
             }

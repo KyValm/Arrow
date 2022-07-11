@@ -1,9 +1,5 @@
 package com.kenzie.appserver.service.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 public class Arrow {
     private final String userId;
     private final String messageId;
@@ -40,8 +36,6 @@ public class Arrow {
 
     public String getMessageId() { return messageId; }
 
-
-
     // the following parameters have getters And setters in order to be updatable
 
     public String getRecipientName() { return recipientName; }
@@ -68,14 +62,7 @@ public class Arrow {
 
     public void setSendDate(String sendDate) { this.sendDate = sendDate; }
 
-    // the following parameter is defaulted to false and updated when object called based on current date
-
     public void setStatus() {
-//        LocalDate today = LocalDate.now();
-//        LocalDate send = LocalDate.parse(sendDate);
-//        if(today.isAfter(send)){
-//            status = "sent";
-//        }
         this.status = status;
     }
 
@@ -84,5 +71,3 @@ public class Arrow {
     }
 
 }
-
-// Branch test on Ky branch

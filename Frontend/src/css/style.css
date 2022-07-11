@@ -8,9 +8,9 @@
 body {
   /*font-family: "Roboto", sans-serif;*/
   /*font-size: 0.88rem;*/
-  background-size: cover;
+  background-size: 110%;
   height: 1000px;
-  background: white url(resources/rainbow-vortex.svg) no-repeat center center fixed;
+  background: #12355d url(resources/3d.jpg) no-repeat center center fixed;
   /*filter: blur (20px);*/
 }
 
@@ -19,8 +19,9 @@ body {
   padding: 10px;
   width: 84%;
   border-radius: 1px;
+  border-left-style: solid;
   border-width: 8px;
-  border-color: #ff5733;
+  border-color: #e98c14;
   background-color: white;
   opacity: 0.92;
   text-align: center;
@@ -36,7 +37,8 @@ body {
 .list {
   font-family: "Roboto", sans-serif;
   font-size: 20px;
-  background-color: #ffc87e;
+  background-color: #12355d;
+  color: white
 }
 .list1 {
   font-family: "Roboto", sans-serif;
@@ -217,7 +219,7 @@ button:hover {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.1);
+  transform: translate(-50%, -50%) scale(0.001);
   text-align: center;
   padding: 0 30px 30px;
   color: #333;
@@ -246,7 +248,7 @@ button:hover {
   background: #f1f1f1;
 }
 .form-container .btn {
-  background-color: #FF940C;
+  background-color: #e98c14;
   color: black;
   padding: 16px 20px;
   border: none;
@@ -337,4 +339,37 @@ tr:nth-child(even) {
 }
 #formCloseBtn {
   border: 3px #cce4f8;
+}
+.filterDiv {
+  float: left;
+  width: 1px;
+  height: 42px;
+  padding: 12px 12px 12px 12px;
+  background: none;
+  margin: 12px auto;
+}
+
+#filterInput {
+  float: left;
+  display: block;
+  height: 20px;
+  width: 150px;
+  border-radius: 18px;
+  font-size: 15px;
+  margin: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-width: 3px;
+  outline: none;
+
+}
+#filterInput:hover {
+  box-shadow: 0 0 13px orange;
+  transition: all 0.21s ease-in-out;
+}
+#allMessagesForm {
+  opacity: 98%;
+}
+#update-arrow:hover {
+  color: #ff5733;
 }
