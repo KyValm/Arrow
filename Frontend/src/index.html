@@ -120,6 +120,7 @@
             <button type="button" class="btn" onclick="closeUpdateMessageForm()">Close</button>
         </form>
     </div>
+    <div id="blur" ></div>
 </div>
 <script>
     document.getElementById("content").style.height="200px";
@@ -132,6 +133,7 @@
     let popupUpdateArrowForm = document.getElementById("updateArrowForm");
 
     function openUpdateMessageForm(r) {
+        document.getElementById("blur").style.visibility = "visible";
 
         document.getElementById("update-arrow-form").reset();
 
@@ -155,28 +157,32 @@
     }
     function closeUpdateMessageForm() {
         popupUpdateArrowForm.classList.remove("open-form-popup");
+        document.getElementById("blur").style.visibility = "hidden";
     }
 
     function openAllMessagesForm() {
         popup.classList.remove("open-form-popup");
         popupArrowForm.classList.add("open-form-popup");
+        document.getElementById("blur").style.visibility = "visible";
         document.getElementById("create-arrow-form").reset();
     }
     function closeAllMessagesForm() {
         popupArrowForm.classList.remove("open-form-popup");
         document.getElementById("create-arrow-form").reset();
+        document.getElementById("blur").style.visibility = "hidden";
     }
     function openForm() {
         popup.classList.add("open-form-popup");
         popupArrowForm.classList.remove("open-form-popup");
         popupUpdateArrowForm.classList.remove("open-form-popup");
+        document.getElementById("blur").style.visibility = "visible";
         document.getElementById("create-arrow-form").reset();
     }
     function closeForm() {
         popup.classList.remove("open-form-popup");
         popupArrowForm.classList.remove("open-form-popup");
         document.getElementById("create-arrow-form").reset();
-
+        document.getElementById("blur").style.visibility = "hidden";
     }
     function sortTable(n) {
         let table,
@@ -245,6 +251,5 @@
             }
         }
     }
-
 </script>
 </html>

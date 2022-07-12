@@ -14,6 +14,7 @@ body {
   /*filter: blur (20px);*/
 }
 
+
 .options {
   margin: auto;
   padding: 10px;
@@ -23,12 +24,14 @@ body {
   border-width: 8px;
   border-color: #e98c14;
   background-color: white;
-  opacity: 0.92;
+  opacity: 1;
   text-align: center;
   position: sticky;
   top: 0;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.8);
+  z-index: 1;
 }
+
 #menu li {
   display: inline-block;
   margin-right: 50px;
@@ -167,6 +170,7 @@ button:hover {
 .form {
   width: 400px;
   padding: 20px 50px;
+
 }
 
 .form .close {
@@ -225,6 +229,7 @@ button:hover {
   color: #333;
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
+  z-index: 10;
 }
 .form-container {
   max-width: 300px;
@@ -340,6 +345,10 @@ tr:nth-child(even) {
 #formCloseBtn {
   border: 3px #cce4f8;
 }
+#update-arrow:hover {
+  color: #ff5733;
+}
+
 .filterDiv {
   float: left;
   width: 1px;
@@ -361,15 +370,20 @@ tr:nth-child(even) {
   white-space: nowrap;
   border-width: 3px;
   outline: none;
-
 }
 #filterInput:hover {
   box-shadow: 0 0 13px orange;
   transition: all 0.21s ease-in-out;
 }
-#allMessagesForm {
-  opacity: 98%;
-}
-#update-arrow:hover {
-  color: #ff5733;
+
+#blur{
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0, 0.3);
+  backdrop-filter: blur(8px);
 }
